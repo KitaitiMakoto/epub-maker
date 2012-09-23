@@ -1,8 +1,10 @@
-# Epub::Maker
+Epub::Maker
+===========
 
 TODO: Write a gem description
 
-## Installation
+Installation
+------------
 
 Add this line to your application's Gemfile:
 
@@ -16,11 +18,13 @@ Or install it yourself as:
 
     $ gem install epub-maker
 
-## Usage
+Usage
+-----
 
 TODO: Write usage instructions here
 
-## Contributing
+Contributing
+------------
 
 1. Fork it
 2. Create your feature branch (`git checkout -b my-new-feature`)
