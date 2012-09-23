@@ -42,15 +42,41 @@
 
     <link rel="onix-record" href="http://example.org/onix/12389347" refines="#pub-id"/>
     <link rel="xmp-record" href="http://example.org/xmp/12389347"/>
-    <link rel="foaf:homepage" href="http://example.org/book-info/12389347" />
   </metadata>
   <manifest id="manifest-id">
     <item id="nav"
           href="nav.xhtml"
           media-type="application/xhtml+xml"
           properties="nav"/>
+    <item id="cover"
+          href="cover.xhtml"
+          media-type="application/xhtml+xml"/>
+    <item id="manifest-item-1"
+          href="item-1.xhtml"
+          media-type="application/pdf"
+          properties="property1 property2  property3"
+          fallback="manifest-item-2"/>
+    <item id="impl"
+          href="impl.xhtml"
+          media-type="application/xhtml+xml"
+          properties="scripted"/>
+    <item id="slideshow"
+          href="slideshow.xml"
+          media-type="application/x-demo-slideshow"/>
+    <item id="manifest-item-2"
+          href="item-2.xhtml"
+          media-type="application/pdf"
+          fallback="manifest-item-fallback"/>
+    <item id="manifest-item-fallback"
+          href="fallback.xhtml"
+          media-type="image/svg+xml"
+          fallback="manifest-item-fallback2"/>
+    <item id="manifest-item-fallback2"
+          href="fallback2.xhtml"
+          media-type="application/xhtml+xml"/>
   </manifest>
   <spine>
+    <itemref idref="cover" linear="no"/>
     <itemref idref="nav"/>
     <itemref idref="manifest-item-1"/>
     <itemref idref="manifest-item-2"/>
