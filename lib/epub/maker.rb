@@ -39,3 +39,27 @@ module EPUB
     end
   end
 end
+
+class Pathname
+  class << self
+    def common_prefix(*paths)
+      base = paths.pop
+      return if base.nil?
+      base.common_prefix(*paths)
+    end
+  end
+
+  def common_prefix(*paths)
+    base = to_s.split('/').each
+    enums = paths.map {|path| path.to_s.split('/').each}
+    dirs = base.take_while {|dir|
+      enums.all? {|enum|
+        begin
+          dir == enum.next
+        rescue StopIteration
+        end
+      }
+    }
+    self.class.new dirs.join('/')
+  end
+end
