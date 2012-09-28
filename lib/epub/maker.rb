@@ -49,6 +49,12 @@ class Pathname
     end
   end
 
+  def write(str)
+    open 'w' do |file|
+      file << str
+    end
+  end
+
   def common_prefix(*paths)
     base = to_s.split('/').each
     enums = paths.map {|path| path.to_s.split('/').each}
