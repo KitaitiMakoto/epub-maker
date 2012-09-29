@@ -75,6 +75,21 @@ module EPUB
 
       class Spine
         def to_xml_fragment(xml)
+          node = xml.spine {
+            itemrefs.each do |itemref|
+              itemref_node = xml.itemref
+              [:idref, :id].each do |attr|
+                val = itemref.__send__(attr)
+                itemref_node[attr] = val if val
+              end
+              itemref_node['linear'] = 'no' unless itemref.linear?
+              itemref_node['properties'] = itemref.properties.join(' ') unless itemref.properties.empty?
+            end
+          }
+          [:id, :toc, :page_progression_direction].each do |attr|
+            val = __send__(attr)
+            node[attr.to_s.gsub('_', '-')] = val if val
+          end
         end
       end
 
