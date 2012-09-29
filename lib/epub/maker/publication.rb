@@ -8,7 +8,7 @@ module EPUB
           xml.package('version' => '3.0',
                       'unique-identifier' => unique_identifier.id,
                       'xmlns' => EPUB::NAMESPACES['opf']) do
-            EPUB::Publication::Package::CONTENT_MODELS.each do |model|
+            (EPUB::Publication::Package::CONTENT_MODELS - [:guide]).each do |model|
               __send__(model).to_xml_fragment xml
             end
           end
@@ -90,11 +90,6 @@ module EPUB
             val = __send__(attr)
             node[attr.to_s.gsub('_', '-')] = val if val
           end
-        end
-      end
-
-      class Guide
-        def to_xml_fragment(xml)
         end
       end
 
