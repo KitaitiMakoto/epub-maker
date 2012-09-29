@@ -56,16 +56,17 @@ class Pathname
   end
 
   def common_prefix(*paths)
-    base = to_s.split('/').each
-    enums = paths.map {|path| path.to_s.split('/').each}
-    dirs = base.take_while {|dir|
-      enums.all? {|enum|
+    enums = paths.map {|path| path.enum_for(:descend)}
+    last_filename = nil
+    enum_for(:descend).each do |filename|
+      break unless enums.all? {|enum|
         begin
-          dir == enum.next
+          filename == enum.next
         rescue StopIteration
         end
       }
-    }
-    self.class.new dirs.join('/')
+      last_filename = filename
+    end
+    last_filename
   end
 end
