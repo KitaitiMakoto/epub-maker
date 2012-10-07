@@ -22,10 +22,11 @@ module EPUB
               singular = elems[0..-2]
               __send__("dc_#{elems}").each do |elem|
                 node = xml['dc'].__send__(singular, elem.content)
-                [:id, :lang, :dir].each do |attr|
+                [:id, :dir].each do |attr|
                   val = elem.__send__(attr)
                   node[attr] = val if val
                 end
+                node['xml:lang'] = elem.lang if elem.lang
               end
             end
             languages.each do |language|
