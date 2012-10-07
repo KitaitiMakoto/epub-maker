@@ -33,5 +33,8 @@ class TestMakerPublication < Test::Unit::TestCase
 
     itemref = doc.xpath('/opf:package/opf:spine/opf:itemref', EPUB::NAMESPACES).first
     assert_equal 'cover', itemref['idref']
+
+    media_type = doc.xpath('/opf:package/opf:bindings/opf:mediaType', EPUB::NAMESPACES).first
+    assert_equal 'application/x-demo-slideshow', media_type['media-type']
   end
 end
