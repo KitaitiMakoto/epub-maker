@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_runtime_dependency 'epub-parser'
+  gem.add_runtime_dependency 'pathname-common_prefix'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'test-unit-full'

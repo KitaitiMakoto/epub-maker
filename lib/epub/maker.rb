@@ -1,5 +1,6 @@
 require "epub/maker/version"
 require 'pathname'
+require 'pathname/common_prefix'
 require 'fileutils'
 require 'epub/parser'
 
@@ -41,32 +42,9 @@ module EPUB
 end
 
 class Pathname
-  class << self
-    def common_prefix(*paths)
-      base = paths.pop
-      return if base.nil?
-      base.common_prefix(*paths)
-    end
-  end
-
   def write(str)
     open 'w' do |file|
       file << str
     end
-  end
-
-  def common_prefix(*paths)
-    enums = paths.map {|path| path.enum_for(:descend)}
-    last_filename = nil
-    enum_for(:descend).each do |filename|
-      break unless enums.all? {|enum|
-        begin
-          filename == enum.next
-        rescue StopIteration
-        end
-      }
-      last_filename = filename
-    end
-    last_filename
   end
 end
