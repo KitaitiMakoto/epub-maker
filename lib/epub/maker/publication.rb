@@ -90,6 +90,8 @@ module EPUB
       end
 
       class Bindings
+        include ContentModel
+
         def to_xml_fragment(xml)
           xml.bindings {
             media_types.each do |media_type|
