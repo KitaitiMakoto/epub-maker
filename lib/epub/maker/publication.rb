@@ -16,6 +16,9 @@ module EPUB
       end
 
       module ContentModel
+        # @param [Nokogiri::XML::Builder::NodeBuilder] node
+        # @param [Object] model
+        # @param [Array<Symbol|String>] attributes names of attribute.
         def to_xml_attribute(node, model, attributes)
           attributes.each do |attr|
             val = model.__send__(attr)
