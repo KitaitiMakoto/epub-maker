@@ -21,5 +21,17 @@ class TestMakerPublication < Test::Unit::TestCase
 
     link = doc.xpath('/opf:package/opf:metadata/opf:link[@refines]', EPUB::NAMESPACES).first
     assert_equal 'http://example.org/onix/12389347', link['href']
+
+    manifest = doc.xpath('/opf:package/opf:manifest', EPUB::NAMESPACES).first
+    assert_equal 'manifest-id', manifest['id']
+
+    item = doc.xpath('/opf:package/opf:manifest/opf:item[@id="nav"]', EPUB::NAMESPACES).first
+    assert_equal 'application/xhtml+xml', item['media-type']
+
+    spine = doc.xpath('/opf:package/opf:spine', EPUB::NAMESPACES).first
+    assert_equal 'spine-id', spine['id']
+
+    itemref = doc.xpath('/opf:package/opf:spine/opf:itemref', EPUB::NAMESPACES).first
+    assert_equal 'cover', itemref['idref']
   end
 end

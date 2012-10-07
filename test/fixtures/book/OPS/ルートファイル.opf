@@ -75,7 +75,7 @@
           href="fallback2.xhtml"
           media-type="application/xhtml+xml"/>
   </manifest>
-  <spine>
+  <spine id="spine-id">
     <itemref idref="cover" linear="no"/>
     <itemref idref="nav"/>
     <itemref idref="manifest-item-1"/>

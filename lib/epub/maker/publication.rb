@@ -58,39 +58,34 @@ module EPUB
       end
 
       class Manifest
+        include ContentModel
+
         def to_xml_fragment(xml)
           node = xml.manifest {
             items.each do |item|
               item_node = xml.item
-              [:id, :href, :media_type, :media_overlay].each do |attr|
-                val = item.__send__(attr)
-                item_node[attr.to_s.gsub('_', '-')] = val if val
-              end
+              to_xml_attribute item_node, item, [:id, :href, :media_type, :media_overlay]
               item_node['properties'] = item.properties.join(' ') unless item.properties.empty?
               item_node['fallback'] = item.fallback.id if item.fallback
             end
           }
-          node['id'] = id if id
+          to_xml_attribute node, self, [:id]
         end
       end
 
       class Spine
+        include ContentModel
+
         def to_xml_fragment(xml)
           node = xml.spine {
             itemrefs.each do |itemref|
               itemref_node = xml.itemref
-              [:idref, :id].each do |attr|
-                val = itemref.__send__(attr)
-                itemref_node[attr] = val if val
-              end
+              to_xml_attribute itemref_node, itemref, [:idref, :id]
               itemref_node['linear'] = 'no' unless itemref.linear?
               itemref_node['properties'] = itemref.properties.join(' ') unless itemref.properties.empty?
             end
           }
-          [:id, :toc, :page_progression_direction].each do |attr|
-            val = __send__(attr)
-            node[attr.to_s.gsub('_', '-')] = val if val
-          end
+          to_xml_attribute node, self, [:id, :toc, :page_progression_direction]
         end
       end
 
