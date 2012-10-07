@@ -11,7 +11,15 @@ class TestMakerPublication < Test::Unit::TestCase
   end
 
   def test_to_xml_attribute
-    actual = Nokogiri.XML(@package.to_xml).xpath('/opf:package/opf:metadata/dc:identifier', EPUB::NAMESPACES).first
-    assert_equal 'pub-id', actual['id']
+    doc = Nokogiri.XML(@package.to_xml)
+
+    identifier = doc.xpath('/opf:package/opf:metadata/dc:identifier', EPUB::NAMESPACES).first
+    assert_equal 'pub-id', identifier['id']
+
+    meta = doc.xpath('/opf:package/opf:metadata/opf:meta[@scheme]', EPUB::NAMESPACES).first
+    assert_equal 'marc:relators', meta['scheme']
+
+    link = doc.xpath('/opf:package/opf:metadata/opf:link[@refines]', EPUB::NAMESPACES).first
+    assert_equal 'http://example.org/onix/12389347', link['href']
   end
 end

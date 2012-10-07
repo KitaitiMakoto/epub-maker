@@ -15,17 +15,25 @@ module EPUB
         }.to_xml
       end
 
+      module ContentModel
+        def to_xml_attribute(node, model, attributes)
+          attributes.each do |attr|
+            val = model.__send__(attr)
+            node[attr.to_s.gsub('_', '-')] = val if val
+          end
+        end
+      end
+
       class Metadata
+        include ContentModel
+
         def to_xml_fragment(xml)
           xml.metadata('xmlns:dc' => EPUB::NAMESPACES['dc']) {
             (DC_ELEMS - [:languages]).each do |elems|
               singular = elems[0..-2]
               __send__("dc_#{elems}").each do |elem|
                 node = xml['dc'].__send__(singular, elem.content)
-                [:id, :dir].each do |attr|
-                  val = elem.__send__(attr)
-                  node[attr] = val if val
-                end
+                to_xml_attribute node, elem, [:id, :dir]
                 node['xml:lang'] = elem.lang if elem.lang
               end
             end
@@ -35,19 +43,13 @@ module EPUB
 
             metas.each do |meta|
               node = xml.meta(meta.content)
-              [:property, :id, :scheme].each do |attr|
-                val = meta.__send__(attr)
-                node[attr] = val if val
-              end
+              to_xml_attribute node, meta, [:property, :id, :scheme]
               node['refines'] = "##{meta.refines.id}" if meta.refines
             end
 
             links.each do |link|
               node = xml.link
-              [:href, :id, :media_type].each do |attr|
-                val = link.__send__(attr)
-                node[attr.to_s.gsub('_', '-')] = val if val
-              end
+              to_xml_attribute node, link, [:href, :id, :media_type]
               node['rel'] = link.rel.join(' ') if link.rel
               node['refines'] = "##{link.refines.id}" if link.refines
             end
