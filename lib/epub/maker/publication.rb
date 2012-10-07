@@ -99,7 +99,7 @@ module EPUB
           xml.bindings {
             media_types.each do |media_type|
               media_type_node = xml.mediaType
-              media_type_node['media-type'] = media_type.media_type if media_type.media_type
+              to_xml_attribute media_type_node, media_type, [:media_type]
               media_type_node['handler'] = media_type.handler.id if media_type.handler && media_type.handler.id
             end
           }
