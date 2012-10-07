@@ -9,7 +9,7 @@ module EPUB
     MIME_TYPE = 'application/epub+zip'
   end
 
-  module Maker
+  class Maker
     class << self
       def make_from_directory(dir)
         dir = Pathname(dir)

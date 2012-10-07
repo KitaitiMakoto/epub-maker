@@ -1,5 +1,5 @@
 module EPUB
-  module Maker
+  class Maker
     VERSION = "0.0.1"
   end
 end
