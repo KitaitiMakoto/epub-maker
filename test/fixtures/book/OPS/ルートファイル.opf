@@ -49,7 +49,7 @@
           media-type="application/xhtml+xml"
           properties="nav"/>
     <item id="cover"
-          href="cover.xhtml"
+          href="表紙.xhtml"
           media-type="application/xhtml+xml"/>
     <item id="manifest-item-1"
           href="item-1.xhtml"
@@ -82,7 +82,7 @@
     <itemref idref="manifest-item-2"/>
   </spine>
   <guide>
-    <reference type="cover" href="cover.xhtml#start" title="カバー"/>
+    <reference type="cover" href="表紙.xhtml#start" title="カバー"/>
   </guide>
   <bindings>
     <mediaType handler="impl"

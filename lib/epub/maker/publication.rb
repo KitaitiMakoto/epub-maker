@@ -107,4 +107,20 @@ module EPUB
       end
     end
   end
+
+  class Maker
+    module Publication
+      class Package
+        attr_reader :package
+
+        def initialize
+          @package = EPUB::Publication::Package.new
+        end
+
+        def dc_titles
+          package.metadata.dc_titles
+        end
+      end
+    end
+  end
 end

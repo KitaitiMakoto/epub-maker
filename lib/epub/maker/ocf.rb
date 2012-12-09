@@ -3,7 +3,7 @@ require 'epub/ocf/container'
 module EPUB
   class OCF
     class Container
-      def to_xml
+      def to_xml(options={:encoding => 'UTF-8'})
         Nokogiri::XML::Builder.new {|xml|
           xml.container('xmlns' => EPUB::NAMESPACES['ocf'], 'version' => '1.0') {
             xml.rootfiles {
@@ -13,7 +13,7 @@ module EPUB
               end
             }
           }
-        }.to_xml
+        }.to_xml(options)
       end
     end
   end
