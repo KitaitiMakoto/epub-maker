@@ -7,6 +7,10 @@ module EPUB
         Nokogiri::XML::Builder.new {|xml|
           xml.package('version' => '3.0',
                       'unique-identifier' => unique_identifier.id,
+                      'dir' => dir,
+                      'id' => id,
+                      'xml:lan' => xml_lang,
+                      'prefix' => prefix.reduce('') {|attr, (pfx, iri)| [attr, [pfx, iri].join(':')].join(' ')},
                       'xmlns' => EPUB::NAMESPACES['opf']) do
             (EPUB::Publication::Package::CONTENT_MODELS - [:guide]).each do |model|
               __send__(model).to_xml_fragment xml
