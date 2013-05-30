@@ -2,9 +2,11 @@ require 'forwardable'
 require 'pathname'
 require 'pathname/common_prefix'
 require 'fileutils'
+require 'epub/book'
 require 'epub/parser'
 require "epub/maker/version"
 require 'epub/maker/ocf'
+require 'epub/maker/publication'
 
 module EPUB
   module Constants
@@ -13,15 +15,15 @@ module EPUB
 
   class Maker
     class << self
-      def make(*args, &block)
-        new.make(&block)
+      def make(path, &block)
+        new.make(path, &block)
       end
 
       def make_from_package_document(package_document_path, root_dir=nil)
         maker = new
         maker.package_document_path = package_document_path
         maker.root_dir = root_dir
-        FileUtils::Verbose.cp File.expand_path('../../../templates/template.epub', __FILE__), maker.output_path.to_s
+        FileUtils.cp File.expand_path('../../../templates/template.epub', __FILE__), maker.output_path.to_s
         Zip::Archive.open maker.output_path.to_s do |archive|
           archive.add_buffer 'META-INF/container.xml', maker.container.to_xml
           archive.add_file maker.rootfile_path.to_s, maker.package_document_path.to_s
@@ -66,12 +68,17 @@ module EPUB
     attr_reader :package_document_path
     attr_writer :container, :package, :root_dir, :base_dir, :output_path
 
-    def make
-      yield self
+    def make(path)
+      book = EPUB::Book.new
+      Zip::Archive.open path do |archive|
+        yield book if block_given?
+        book.save archive
+      end
+      book
 
-      validate
-      build_xml
-      archive
+      # validate
+      # build_xml
+      # archive
     end
 
     def package_document_path=(path)
@@ -124,6 +131,28 @@ module EPUB
       end
       package.metadata.dc_titles.unshift title # metas which refines titles are created after yielding block after the order of package.dc_titles
     end
+  end
+
+  def make_ocf
+    self.ocf = OCF.new
+    ocf.make do |ocf|
+      yield ocf if block_given?
+    end
+    ocf
+  end
+
+  def make_package
+    self.package = Publication::Package.new
+    package.make do |package|
+      yield package if block_given?
+    end
+    package
+  end
+
+  # @param archive [Zip::Archive]
+  def save(archive)
+    ocf.save archive
+    package.save archive
   end
 end
 

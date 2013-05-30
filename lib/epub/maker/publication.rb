@@ -5,7 +5,7 @@ module EPUB
     class Package
       def to_xml
         Nokogiri::XML::Builder.new {|xml|
-          xml.package('version' => '3.0',
+          xml.package_('version' => '3.0',
                       'unique-identifier' => unique_identifier.id,
                       'dir' => dir,
                       'id' => id,
@@ -17,6 +17,28 @@ module EPUB
             end
           end
         }.to_xml
+      end
+
+      def make
+        (CONTENT_MODELS - [:guide]).each do |model|
+          klass = self.class.const_get(model.to_s.capitalize)
+          obj = klass.new
+          __send__ "#{model}=", obj
+        end
+        yield self if block_given?
+        self
+      end
+
+      def make_metadata
+        self.metadata = Metadata.new
+        metadata.make do
+          yield metadata if block_given?
+        end
+        metadata
+      end
+
+      def save(archive)
+        archive.add_buffer book.rootfile_path, to_xml
       end
 
       module ContentModel
@@ -34,8 +56,23 @@ module EPUB
       class Metadata
         include ContentModel
 
+        def make
+          yield self if block_given?
+          unless unique_identifier
+            if identifiers.empty?
+              identifier = DCMES.new
+              raise NotImplementedError, 'Use ruby-uuid gem'
+              self.unique_identifier = identifier
+            else
+              self.unique_identifier = identifiers.first
+            end
+          end
+          # metadata.unique_identifier = ... unless metadata.unique_identifier
+          self
+        end
+
         def to_xml_fragment(xml)
-          xml.metadata('xmlns:dc' => EPUB::NAMESPACES['dc']) {
+          xml.metadata_('xmlns:dc' => EPUB::NAMESPACES['dc']) {
             (DC_ELEMS - [:languages]).each do |elems|
               singular = elems[0..-2]
               __send__("dc_#{elems}").each do |elem|
@@ -68,9 +105,9 @@ module EPUB
         include ContentModel
 
         def to_xml_fragment(xml)
-          node = xml.manifest {
+          node = xml.manifest_ {
             items.each do |item|
-              item_node = xml.item
+              item_node = xml.item_
               to_xml_attribute item_node, item, [:id, :href, :media_type, :media_overlay]
               item_node['properties'] = item.properties.join(' ') unless item.properties.empty?
               item_node['fallback'] = item.fallback.id if item.fallback
@@ -84,7 +121,7 @@ module EPUB
         include ContentModel
 
         def to_xml_fragment(xml)
-          node = xml.spine {
+          node = xml.spine_ {
             itemrefs.each do |itemref|
               itemref_node = xml.itemref
               to_xml_attribute itemref_node, itemref, [:idref, :id]
@@ -100,7 +137,7 @@ module EPUB
         include ContentModel
 
         def to_xml_fragment(xml)
-          xml.bindings {
+          xml.bindings_ {
             media_types.each do |media_type|
               media_type_node = xml.mediaType
               to_xml_attribute media_type_node, media_type, [:media_type]
