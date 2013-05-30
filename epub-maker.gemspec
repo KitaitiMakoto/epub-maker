@@ -13,6 +13,11 @@ Gem::Specification.new do |gem|
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
+  gem.files.reject! do |fn|
+    ['"test/fixtures/book/OPS/\343\203\253\343\203\274\343\203\210\343\203\225\343\202\241\343\202\244\343\203\253.opf"', '"test/fixtures/book/OPS/\350\241\250\347\264\231.xhtml"'].include? fn
+  end
+  gem.files.push('test/fixtures/book/OPS/ルートファイル.opf')
+  gem.files.push('test/fixtures/book/OPS/表紙.xhtml')
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
