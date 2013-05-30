@@ -155,6 +155,9 @@ module EPUB
   def save(archive)
     ocf.save archive
     package.save archive
+    resources.each do |item|
+      item.save archive
+    end
   end
 end
 
