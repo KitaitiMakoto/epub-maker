@@ -5,13 +5,21 @@ module EPUB
     class Package
       def to_xml
         Nokogiri::XML::Builder.new {|xml|
-          xml.package_('version' => '3.0',
-                      'unique-identifier' => unique_identifier.id,
-                      'dir' => dir,
-                      'id' => id,
-                      'xml:lang' => xml_lang,
-                      'prefix' => prefix.reduce('') {|attr, (pfx, iri)| [attr, [pfx, iri].join(':')].join(' ')},
-                      'xmlns' => EPUB::NAMESPACES['opf']) do
+          attrs = {
+            'version'           => '3.0',
+            'xmlns'             => EPUB::NAMESPACES['opf'],
+            'unique-identifier' => unique_identifier.id
+          }
+          [
+           ['dir', dir],
+           ['id', id],
+           ['xml:lang', xml_lang],
+           ['prefix', prefix.reduce('') {|attr, (pfx, iri)| [attr, [pfx, iri].join(':')].join(' ')}]
+          ].each do |(name, value)|
+            next if value.nil? or value.empty?
+            attrs[name] = value
+          end
+          xml.package_(attrs) do
             (EPUB::Publication::Package::CONTENT_MODELS - [:guide]).each do |model|
               __send__(model).to_xml_fragment xml
             end
