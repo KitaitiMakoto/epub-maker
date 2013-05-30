@@ -3,8 +3,8 @@ require 'epub/publication/package'
 module EPUB
   module Publication
     class Package
-      def to_xml
-        Nokogiri::XML::Builder.new {|xml|
+      def to_xml(options={:encoding => 'UTF-8'})
+        Nokogiri::XML::Builder.new(options) {|xml|
           attrs = {
             'version'           => '3.0',
             'xmlns'             => EPUB::NAMESPACES['opf'],
@@ -20,7 +20,7 @@ module EPUB
             attrs[name] = value
           end
           xml.package_(attrs) do
-            (EPUB::Publication::Package::CONTENT_MODELS - [:guide]).each do |model|
+            (EPUB::Publication::Package::CONTENT_MODELS - [:bindings, :guide]).each do |model|
               __send__(model).to_xml_fragment xml
             end
           end
@@ -28,7 +28,7 @@ module EPUB
       end
 
       def make
-        (CONTENT_MODELS - [:guide]).each do |model|
+        (CONTENT_MODELS - [:bindings, :guide]).each do |model|
           klass = self.class.const_get(model.to_s.capitalize)
           obj = klass.new
           __send__ "#{model}=", obj

@@ -23,7 +23,7 @@ module EPUB
 
     class Container
       def to_xml(options={:encoding => 'UTF-8'})
-        Nokogiri::XML::Builder.new {|xml|
+        Nokogiri::XML::Builder.new(options) {|xml|
           xml.container('xmlns' => EPUB::NAMESPACES['ocf'], 'version' => '1.0') {
             xml.rootfiles {
               rootfiles.each do |rootfile|
@@ -32,7 +32,7 @@ module EPUB
               end
             }
           }
-        }.to_xml(options)
+        }.to_xml
       end
 
       # @param archive [Zip::Archive]
