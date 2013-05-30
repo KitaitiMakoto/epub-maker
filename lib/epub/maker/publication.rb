@@ -93,21 +93,31 @@ module EPUB
               self.unique_identifier = identifiers.first
             end
           end
+
+          unless metas.any? {|meta| meta.property == 'dcterms:modified'}
+            modified = Meta.new
+            modified.property = 'dcterms:modified'
+            # modified.content = Time.now.utc.strftime('%FT%TZ')
+            modified.content = Time.now.utc.iso8601
+            self.metas << modified
+          end
+
           self
         end
 
         def to_xml_fragment(xml)
           xml.metadata_('xmlns:dc' => EPUB::NAMESPACES['dc']) {
             (DC_ELEMS - [:languages]).each do |elems|
-              singular = elems[0..-2]
+              singular = elems[0..-2] + '_'
               __send__("dc_#{elems}").each do |elem|
                 node = xml['dc'].__send__(singular, elem.content)
                 to_xml_attribute node, elem, [:id, :dir]
                 node['xml:lang'] = elem.lang if elem.lang
               end
             end
+
             languages.each do |language|
-              xml.language language
+              xml['dc'].language language.content
             end
 
             metas.each do |meta|
@@ -123,6 +133,24 @@ module EPUB
               node['refines'] = "##{link.refines.id}" if link.refines
             end
           }
+        end
+
+        # Shortcut to set title from String
+        # @param title [String]
+        def title=(title)
+          t = Title.new
+          t.content = title
+          self.dc_titles = [t]
+          title
+        end
+
+        # Shortcut to set language from String
+        # @param lang_code [String]
+        def language=(lang_code)
+          lang = DCMES.new
+          lang.content = lang_code
+          self.dc_languages = [lang]
+          lang_code
         end
       end
 
