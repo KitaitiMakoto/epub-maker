@@ -2,6 +2,7 @@ require 'forwardable'
 require 'pathname'
 require 'pathname/common_prefix'
 require 'fileutils'
+require 'uuid'
 require 'epub/book'
 require 'epub/parser'
 require "epub/maker/version"

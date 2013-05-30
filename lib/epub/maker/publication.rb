@@ -61,13 +61,14 @@ module EPUB
           unless unique_identifier
             if identifiers.empty?
               identifier = DCMES.new
-              raise NotImplementedError, 'Use ruby-uuid gem'
+              identifier.id = 'pub-id'
+              identifier.content = UUID.create.to_s
+              self.dc_identifiers << identifier
               self.unique_identifier = identifier
             else
               self.unique_identifier = identifiers.first
             end
           end
-          # metadata.unique_identifier = ... unless metadata.unique_identifier
           self
         end
 
