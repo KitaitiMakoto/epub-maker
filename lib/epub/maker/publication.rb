@@ -45,6 +45,14 @@ module EPUB
         metadata
       end
 
+      def make_manifest
+        self.manifest = Manifest.new
+        manifest.make do
+          yield manifest if block_given?
+        end
+        manifest
+      end
+
       def save(archive)
         archive.add_buffer book.rootfile_path, to_xml
       end
@@ -113,6 +121,22 @@ module EPUB
       class Manifest
         include ContentModel
 
+        def make
+          yield self if block_given?
+          self
+        end
+
+        def make_item(options={})
+          item = Item.new
+          [:id, :href, :media_type, :properties, :media_overlay].each do |attr|
+            next unless options.key? attr
+            item.__send__ "#{attr}=", options[attr]
+          end
+          yield item if block_given?
+          self << item
+          item
+        end
+
         def to_xml_fragment(xml)
           node = xml.manifest_ {
             items.each do |item|
@@ -123,6 +147,21 @@ module EPUB
             end
           }
           to_xml_attribute node, self, [:id]
+        end
+
+        class Item
+          attr_accessor :buffer, :content_file
+
+          # @todo Define proper exception class
+          def save(archive)
+            if buffer
+              archive.add_buffer entry_name, buffer
+            elsif content_file
+              archive.add_file entry_name, content_file
+            else
+              raise 'no buffer nor content_file'
+            end
+          end
         end
       end
 
