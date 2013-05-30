@@ -53,6 +53,14 @@ module EPUB
         manifest
       end
 
+      def make_spine
+        self.spine = Spine.new
+        spine.make do
+          yield spine if block_given?
+        end
+        spine
+      end
+
       def save(archive)
         archive.add_buffer book.rootfile_path, to_xml
       end
@@ -167,6 +175,18 @@ module EPUB
 
       class Spine
         include ContentModel
+
+        def make
+          yield self if block_given?
+          self
+        end
+
+        def make_itemref
+          itemref = Itemref.new
+          self << itemref
+          yield itemref if block_given?
+          itemref
+        end
 
         def to_xml_fragment(xml)
           node = xml.spine_ {
