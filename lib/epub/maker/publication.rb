@@ -182,7 +182,7 @@ module EPUB
 
             nav_nav = ContentDocument::Navigation::Navigation.new
             nav_nav.type = ContentDocument::Navigation::Navigation::Type::TOC
-            nav_nav.items = items.map {|item; nav|
+            nav_nav.items = items.select(&:xhtml?).map {|item; nav|
               nav = ContentDocument::Navigation::Item.new
               nav.item = item
               nav.href = item.href
