@@ -2,6 +2,7 @@ require 'forwardable'
 require 'pathname'
 require 'pathname/common_prefix'
 require 'fileutils'
+require 'tmpdir'
 require 'time'
 require 'uuid'
 require 'epub/book'
@@ -16,6 +17,8 @@ module EPUB
   end
 
   class Maker
+    include ($VERBOSE ? ::FileUtils::Verbose : ::FileUtils)
+
     class << self
       def make(path, &block)
         new.make(path, &block)
@@ -70,11 +73,25 @@ module EPUB
     attr_reader :package_document_path
     attr_writer :container, :package, :root_dir, :base_dir, :output_path
 
+    # @todo Add "mimetype" file without compression
+    # @todo Add option whether mv fails when file locked or not
     def make(path)
       book = EPUB::Book.new
-      Zip::Archive.open path do |archive|
-        yield book if block_given?
-        book.save archive
+      Dir.mktmpdir 'epub-maker' do |dir|
+        temp_path = File.join(dir, File.basename(path))
+        touch temp_path
+
+        Zip::Archive.open temp_path do |archive|
+          warn 'Adding "mimetype" file with compression'
+          archive.add_buffer 'mimetype', 'application/epub+zip'
+          yield book if block_given?
+          book.save archive
+        end
+
+        File.open path, 'wb' do |file|
+          raise "Other process is locking #{path}" unless file.flock File::LOCK_EX|File::LOCK_NB
+          move temp_path, path
+        end
       end
       book
 
