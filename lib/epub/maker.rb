@@ -81,11 +81,9 @@ module EPUB
       book = EPUB::Book.new
       Dir.mktmpdir 'epub-maker' do |dir|
         temp_path = File.join(dir, File.basename(path))
-        touch temp_path
+        copy File.join(__dir__, '..', '..', 'templates', 'template.epub'), temp_path
 
         Zip::Archive.open temp_path do |archive|
-          warn 'Adding "mimetype" file with compression'
-          archive.add_buffer 'mimetype', 'application/epub+zip'
           yield book if block_given?
           book.save archive
         end
