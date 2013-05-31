@@ -159,6 +159,34 @@ module EPUB
 
         def make
           yield self if block_given?
+
+          # @todo more careful
+          unless items.any? &:nav?
+            nav = Item.new
+            nav.id = 'toc'
+            nav.href = Addressable::URI.parse('nav.xhtml')
+            nav.media_type = 'application/xhtml+xml'
+            nav.properties << 'nav'
+
+            nav_doc = ContentDocument::Navigation.new
+            nav_doc.item = nav
+
+            nav_nav = ContentDocument::Navigation::Navigation.new
+            nav_nav.type = ContentDocument::Navigation::Navigation::Type::TOC
+            nav_nav.items = items.map {|item; nav|
+              nav = ContentDocument::Navigation::Item.new
+              nav.item = item
+              nav.href = item.href
+              nav.text = File.basename(item.href.normalize.request_uri, '.*')
+              nav
+            }
+            nav_doc.navigations << nav_nav
+
+            nav.buffer = nav_doc.to_xml
+
+            self << nav
+          end
+
           self
         end
 

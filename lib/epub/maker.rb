@@ -10,6 +10,7 @@ require 'epub/parser'
 require "epub/maker/version"
 require 'epub/maker/ocf'
 require 'epub/maker/publication'
+require 'epub/maker/content_document'
 
 module EPUB
   module Constants
