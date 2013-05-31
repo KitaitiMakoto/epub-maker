@@ -74,7 +74,8 @@ module EPUB
     attr_writer :container, :package, :root_dir, :base_dir, :output_path
 
     # @todo Add "mimetype" file without compression
-    # @todo Add option whether mv fails when file locked or not
+    # @todo Add option whether mv blocks or not when file locked already
+    # @todo Timeout when file shared-locked long time
     def make(path)
       book = EPUB::Book.new
       Dir.mktmpdir 'epub-maker' do |dir|
@@ -89,7 +90,7 @@ module EPUB
         end
 
         File.open path, 'wb' do |file|
-          raise "Other process is locking #{path}" unless file.flock File::LOCK_EX|File::LOCK_NB
+          raise "Other process is locking #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
           move temp_path, path
         end
       end
