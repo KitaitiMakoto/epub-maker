@@ -152,6 +152,15 @@ module EPUB
           self.dc_languages = [lang]
           lang_code
         end
+
+        # Shortcut to set one creator from String
+        # @param lang_code [String]
+        def creator=(name)
+          creator = DCMES.new
+          creator.content = name
+          self.dc_creators = [creator]
+          name
+        end
       end
 
       class Manifest
