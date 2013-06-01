@@ -75,7 +75,7 @@ module EPUB
     attr_reader :package_document_path
     attr_writer :container, :package, :root_dir, :base_dir, :output_path
 
-    # @todo Add "mimetype" file without compression
+    # @param path [Pathname|#to_path|String]
     # @todo Add option whether mv blocks or not when file locked already
     # @todo Timeout when file shared-locked long time
     def make(path)
