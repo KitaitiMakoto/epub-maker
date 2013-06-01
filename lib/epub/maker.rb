@@ -5,6 +5,7 @@ require 'fileutils'
 require 'tmpdir'
 require 'time'
 require 'uuid'
+require 'archive/zip'
 require 'epub/book'
 require 'epub/parser'
 require "epub/maker/version"
@@ -81,7 +82,13 @@ module EPUB
       book = EPUB::Book.new
       Dir.mktmpdir 'epub-maker' do |dir|
         temp_path = File.join(dir, File.basename(path))
-        copy File.join(__dir__, '..', '..', 'templates', 'template.epub'), temp_path
+        mimetype = Pathname(File.join(dir, 'mimetype'))
+        mimetype.write EPUB::MIME_TYPE
+        Archive::Zip.open temp_path, :w do |archive|
+          file = Archive::Zip::Entry.from_file(mimetype.to_s, compression_codec: Archive::Zip::Codec::Store)
+          archive.add_entry file
+        end
+
 
         Zip::Archive.open temp_path do |archive|
           yield book if block_given?

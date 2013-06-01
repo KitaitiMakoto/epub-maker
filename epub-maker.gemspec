@@ -37,4 +37,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'redcarpet'
   gem.add_development_dependency 'gem-man'
   gem.add_development_dependency 'ronn'
+  gem.add_development_dependency 'archive-zip'
 end
