@@ -225,6 +225,12 @@ module EPUB
         class Item
           attr_accessor :buffer, :content_file
 
+          # full path in archive
+          def entry_name
+            rootfile = Addressable::URI.parse(manifest.package.book.ocf.container.rootfile.full_path)
+            Addressable::URI.unescape(rootfile + href.normalize.request_uri)
+          end
+
           # @todo Define proper exception class
           def save(archive)
             if buffer
