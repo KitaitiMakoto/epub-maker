@@ -154,7 +154,7 @@ module EPUB
         end
 
         # Shortcut to set one creator from String
-        # @param lang_code [String]
+        # @param name [String]
         def creator=(name)
           creator = DCMES.new
           creator.content = name
