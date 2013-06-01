@@ -79,25 +79,26 @@ module EPUB
     # @todo Add option whether mv blocks or not when file locked already
     # @todo Timeout when file shared-locked long time
     def make(path)
+      path = Pathname(path) unless path.kind_of? Pathname
       book = EPUB::Book.new
       Dir.mktmpdir 'epub-maker' do |dir|
-        temp_path = File.join(dir, File.basename(path))
-        mimetype = Pathname(File.join(dir, 'mimetype'))
+        dir = Pathname(dir)
+        temp_path = dir + path.basename
+        mimetype = dir + 'mimetype'
         mimetype.write EPUB::MIME_TYPE
-        Archive::Zip.open temp_path, :w do |archive|
-          file = Archive::Zip::Entry.from_file(mimetype.to_s, compression_codec: Archive::Zip::Codec::Store)
+        Archive::Zip.open temp_path.to_path, :w do |archive|
+          file = Archive::Zip::Entry.from_file(mimetype.to_path, compression_codec: Archive::Zip::Codec::Store)
           archive.add_entry file
         end
 
-
-        Zip::Archive.open temp_path do |archive|
+        Zip::Archive.open temp_path.to_path do |archive|
           yield book if block_given?
           book.save archive
         end
 
         File.open path, 'wb' do |file|
           raise "Other process is locking #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
-          move temp_path, path
+          move temp_path.to_path, path.to_path
         end
       end
       book
