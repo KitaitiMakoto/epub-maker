@@ -96,7 +96,7 @@ module EPUB
           book.save archive
         end
 
-        File.open path, 'wb' do |file|
+        path.open 'wb' do |file|
           raise "Other process is locking #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
           move temp_path.to_path, path.to_path
         end
