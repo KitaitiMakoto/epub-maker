@@ -163,9 +163,9 @@ class Pathname
     end
   end
 
-  def write(str)
-    open 'w' do |file|
-      file << str
+  def write(string, mode='w', perm=0666)
+    open mode, perm do |file|
+      file << string
     end
   end
 
