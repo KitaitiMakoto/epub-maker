@@ -37,8 +37,7 @@ module EPUB
     def make(path)
       path = Pathname(path) unless path.kind_of? Pathname
       book = EPUB::Book.new
-      Dir.mktmpdir 'epub-maker' do |dir|
-        dir = Pathname(dir)
+      Pathname.mktmpdir 'epub-maker' do |dir|
         temp_path = dir + path.basename
         mimetype = dir + 'mimetype'
         mimetype.write EPUB::MIME_TYPE
@@ -143,9 +142,34 @@ module EPUB
 end
 
 class Pathname
+  class << self
+    # @overload mktmpdir(prefix_suffix=nil, tmpdir=nil)
+    #   @param prefix_suffix [String|nil] see Dir.mktmpdir
+    #   @param tmpdir [String|nil] see Dir.mktmpdir
+    #   @return [Pathname] path to temporary directory
+    # @overload mktmpdir(prefix_suffix=nil, tmpdir=nil)
+    #   @param prefix_suffix [String|nil] see Dir.mktmpdir
+    #   @param tmpdir [String|nil] see Dir.mktmpdir
+    #   @yieldparam dir [Pathname] path to temporary directory
+    #   @return value of given block
+    def mktmpdir(prefix_suffix=nil, tmpdir=nil)
+      if block_given?
+        Dir.mktmpdir prefix_suffix, tmpdir do |dir|
+          yield new(dir)
+        end
+      else
+        new(Dir.mktmpdir(prefix_suffix, tmpdir))
+      end
+    end
+  end
+
   def write(str)
     open 'w' do |file|
       file << str
     end
+  end
+
+  def remove_entry_secure
+    FileUtils.remove_entry_secure to_path
   end
 end

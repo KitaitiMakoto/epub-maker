@@ -7,8 +7,12 @@ require 'epub/maker'
 class TestMaker < Test::Unit::TestCase
   def setup
     @fixture_dir = Pathname(__dir__) + 'fixtures' + 'book'
-    @dir = Pathname(Dir.mktmpdir('epub-maker-test'))
+    @dir = Pathname.mktmpdir('epub-maker-test')
     @file = @dir + 'book.epub'
+  end
+
+  def teardown
+    @dir.remove_entry_secure if @dir.exist?
   end
 
   def test_make
@@ -57,10 +61,6 @@ class TestMaker < Test::Unit::TestCase
     end
 
     assert_valid_epub @file
-  end
-
-  def teardown
-    FileUtils::Verbose.remove_entry_secure @dir.to_path if @dir.exist?
   end
 
   private
