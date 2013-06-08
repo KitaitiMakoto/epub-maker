@@ -28,6 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'pathname-common_prefix'
   gem.add_runtime_dependency 'mime-types'
   gem.add_runtime_dependency 'ruby-uuid'
+  gem.add_runtime_dependency 'archive-zip'
 
   gem.add_development_dependency 'rake'
   gem.add_development_dependency 'test-unit-full'
@@ -37,5 +38,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'redcarpet'
   gem.add_development_dependency 'gem-man'
   gem.add_development_dependency 'ronn'
-  gem.add_development_dependency 'archive-zip'
 end
