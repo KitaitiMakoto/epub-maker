@@ -1,4 +1,4 @@
-require 'epub/ocf/container'
+require 'epub/ocf'
 
 # @todo Use refinement
 module EPUB
@@ -15,6 +15,12 @@ module EPUB
       self.container.save archive if self.container
     end
 
+    # @overload make_container
+    #   @return [Container]
+    # @overload make_container
+    #   @return [Container]
+    #   @yield [container] if block given
+    #   @yieldparam [Container]
     def make_container
       self.container = Container.new
       yield container if block_given?
@@ -43,7 +49,7 @@ module EPUB
       # @option full_path [String|nil] full path to package document file in container such like "OPS/content.opf"
       # @option media_type [String] media type
       # @yield [Rootfile] rootfile
-      def make_rootfile(full_path: nil, media_type: MediaType::ROOTFILE)
+      def make_rootfile(full_path: nil, media_type: EPUB::MediaType::ROOTFILE)
         rootfile = Rootfile.new(full_path, media_type)
         @rootfiles << rootfile
         yield rootfile if block_given?

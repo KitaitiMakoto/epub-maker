@@ -5,7 +5,7 @@ module EPUB
     class Navigation
       def to_xml(options={:encoding => 'UTF-8'})
         Nokogiri::XML::Builder.new(options) {|xml|
-          xml.html('xmlns' => NAMESPACES['xhtml'], 'xmlns:epub' => NAMESPACES['epub']) {
+          xml.html('xmlns' => EPUB::NAMESPACES['xhtml'], 'xmlns:epub' => EPUB::NAMESPACES['epub']) {
             xml.head {
               xml.title_ 'Table of Contents'
             }

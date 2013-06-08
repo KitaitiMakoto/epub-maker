@@ -205,6 +205,7 @@ module EPUB
             next unless options.key? attr
             item.__send__ "#{attr}=", options[attr]
           end
+          item.manifest = self
           yield item if block_given?
           self << item
           item
