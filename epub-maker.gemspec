@@ -26,8 +26,8 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'mime-types'
   gem.add_runtime_dependency 'ruby-uuid'
   gem.add_runtime_dependency 'archive-zip'
+  gem.add_runtime_dependency 'rake'
 
-  gem.add_development_dependency 'rake'
   gem.add_development_dependency 'test-unit-full'
   gem.add_development_dependency 'epubcheck'
   gem.add_development_dependency 'pry'
