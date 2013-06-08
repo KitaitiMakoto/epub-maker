@@ -25,51 +25,6 @@ module EPUB
       def make(path, &block)
         new.make(path, &block)
       end
-
-      def make_from_package_document(package_document_path, root_dir=nil)
-        maker = new
-        maker.package_document_path = package_document_path
-        maker.root_dir = root_dir
-        FileUtils.cp File.expand_path('../../../templates/template.epub', __FILE__), maker.output_path.to_s
-        Zip::Archive.open maker.output_path.to_s do |archive|
-          archive.add_buffer 'META-INF/container.xml', maker.container.to_xml
-          archive.add_file maker.rootfile_path.to_s, maker.package_document_path.to_s
-          maker.package.manifest.items.each do |item|
-            path_on_container = maker.base_dir + item.href.to_s
-            path_on_file_system = maker.root_dir + path_on_container
-            archive.add_file path_on_container.to_s, path_on_file_system.to_s
-          end
-        end
-      end
-
-      def make_from_directory(dir)
-        dir = Pathname(dir)
-
-        container_dir = dir + EPUB::Parser::OCF::DIRECTORY
-        container_file = container_dir + 'container.xml'
-        ocf_parser = Parser::OCF.new(nil)
-        container = ocf_parser.parse_container(container_file.read)
-
-        opf_file = dir + container.rootfile.full_path
-        publication_parser = Parser::Publication.new(opf_file.read, opf_file.to_s)
-        package = publication_parser.parse
-
-        files = package.manifest.items.select {|item| item.href.relative?}
-        target_file = dir.sub_ext('.epub')
-        template_file = Pathname(File.expand_path('../../../templates/template.epub', __FILE__))
-        FileUtils.copy_file template_file, target_file.to_s
-
-        Zip::Archive.open target_file.to_s do |zip|
-          rootfile = Pathname(container.rootfile.full_path)
-          rootdir = dir + rootfile.dirname
-          zip.add_file File.join('META-INF', 'container.xml'), container_file.to_s
-          zip.add_file rootfile.to_s, opf_file.to_s
-          files.each do |file|
-            puts "add_file #{file.href} #{rootdir+file.href}"
-            zip.add_file file.href.to_s, (rootdir+file.href.to_s).to_s
-          end
-        end
-      end
     end
 
     attr_reader :package_document_path
