@@ -1,3 +1,8 @@
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/test|deps/'
+end
+
 require 'test/unit/full'
 class Test::Unit::TestCase
   def assert_valid_epub(file)

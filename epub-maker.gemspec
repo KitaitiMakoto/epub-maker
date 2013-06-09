@@ -30,6 +30,7 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency 'test-unit-full'
   gem.add_development_dependency 'epubcheck'
+  gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'pry-doc'
   gem.add_development_dependency 'yard'
