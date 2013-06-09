@@ -74,6 +74,19 @@ Usage
       end
     end
 
+### Rake task ###
+
+    DIR = 'path/to/dir/including/documents'
+    EPUB = 'book.epub'
+    SRC = FileList["#{DIR}/**/*.markdown"]
+    HTML = SRC.ext('.xhtm')
+    EPUB::Maker::Task.new EPUB => HTML do |task|
+      task.files = FileList["#{DIR}/**/*"]
+      task.files.exclude {|entry| File.directory? entry}
+      task.resources = 
+      task.spine = task.files.
+    end
+
 Todo
 ----
 * Multibyte filename(maybe the issue of libzip)
