@@ -60,12 +60,6 @@ class TestMaker < Test::Unit::TestCase
       end
     end
 
-    assert_valid_epub @file
-  end
-
-  private
-
-  def assert_valid_epub(file)
-    assert_true system("epubcheck #{file}")
+    assert_valid_epub @file.to_path
   end
 end
