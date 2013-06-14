@@ -44,10 +44,10 @@ module EPUB
               if container
                 ocf.container = EPUB::Parser::OCF.new(nil).parse_container(File.read(container))
               else
-                raise 'Set at least one rootfile' if @rootfiles.empty?
+                raise 'Set at least one rootfile' if rootfiles.empty?
                 ocf.make_container do |container|
-                  @rootfiles.each do |rootfile|
-                    container.make_rootfile full_path: file_map[rootfile]
+                  rootfiles.each do |rootfile|
+                    container.make_rootfile full_path: Addressable::URI.parse(file_map[rootfile])
                   end
                 end
               end
@@ -84,7 +84,8 @@ module EPUB
                   @spine.each do |item_path|
                     entry_name = file_map[item_path]
                     spine.make_itemref do |itemref|
-                      itemref.item = package.manifest.items.find {|i| i.entry_name == entry_name}
+                      item = package.manifest.items.find {|i| i.entry_name == entry_name}
+                      itemref.item = item if item
                       warn "missing item #{item_path}, referred by itemref" if itemref.item.nil?
                       itemref.linear = true # TODO: Make more customizable
                     end

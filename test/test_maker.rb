@@ -19,7 +19,7 @@ class TestMaker < Test::Unit::TestCase
     EPUB::Maker.make @file do |book|
       book.make_ocf do |ocf|
         ocf.make_container do |container|
-          container.make_rootfile full_path: 'OPS/content.opf'
+          container.make_rootfile full_path: Addressable::URI.parse('OPS/content.opf')
         end
       end
 
