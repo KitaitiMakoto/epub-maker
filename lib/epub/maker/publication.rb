@@ -61,6 +61,14 @@ module EPUB
         spine
       end
 
+      def make_bindings
+        self.bindings = Bindings.new
+        bindings.make do
+          yield bindings if block_given?
+        end
+        bindings
+      end
+
       def save(archive)
         archive.add_buffer book.rootfile_path, to_xml
       end
@@ -269,6 +277,18 @@ module EPUB
 
       class Bindings
         include ContentModel
+
+        def make
+          yield self if block_given?
+          self
+        end
+
+        def make_media_type
+          media_type = MediaType.new
+          self << media_type
+          yield media_type if block_given?
+          media_type
+        end
 
         def to_xml_fragment(xml)
           xml.bindings_ {

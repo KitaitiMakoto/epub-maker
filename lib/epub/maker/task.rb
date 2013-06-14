@@ -8,8 +8,9 @@ module EPUB
       attr_accessor :target, :base_dir, :files, :file_map_proc,
                     :container, :rootfiles, :make_rootfiles, :package_direction, :language,
                     :titles, :contributors,
-                    :resources, :navs, :cover_image,
-                    :spine
+                    :resources, :navs, :cover_image, :media_types,
+                    :spine,
+                    :bindings
 
       # @param name [String] EPUB file name
       def initialize(name)
@@ -29,6 +30,10 @@ module EPUB
         @language = 'en'
         @file_map = {}
         @file_map_proc = -> (src_name) {src_name.sub("#{@base_dir.sub(/\/\z/, '')}/", '')}
+        @navs = FileList.new
+        @media_types = {}
+        @spine = FileList.new
+        @bindings = {}
       end
 
       def define
