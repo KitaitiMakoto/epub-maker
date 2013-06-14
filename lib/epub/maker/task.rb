@@ -58,16 +58,50 @@ module EPUB
                 package.dir = package_direction
 
                 package.make_metadata do |metadata|
-                  metadata.title = @title
+                  metadata.title = @titles.first
                   metadata.language = language
                 end
 
                 package.make_manifest do |manifest|
-                  
+                  rootfile_path = Pathname(package.book.rootfile_path)
+                  resources.each_with_index do |resource, index|
+                    resource_path = Pathname(file_map[resource])
+                    manifest.make_item do |item|
+                      item.id = "item-#{index + 1}"
+                      href = resource_path.relative_path_from(rootfile_path.parent)
+                      item.href = Addressable::URI.parse(href.to_path)
+                      item.media_type = media_types[resource] ||
+                        case resource_path.extname
+                        when '.xhtml', '.html' then 'application/xhtml+xml'
+                        end
+                      item.content_file = resource
+                      item.properties << 'nav' if navs.include? item.entry_name
+                    end
+                  end
                 end
 
                 package.make_spine do |spine|
-                  
+                  @spine.each do |item_path|
+                    entry_name = file_map[item_path]
+                    spine.make_itemref do |itemref|
+                      itemref.item = package.manifest.items.find {|i| i.entry_name == entry_name}
+                      warn "missing item #{item_path}, referred by itemref" if itemref.item.nil?
+                      itemref.linear = true # TODO: Make more customizable
+                    end
+                  end
+                end
+
+                if @bindings and !@bindings.empty?
+                  package.make_bindings do |bindings|
+                    @bindings.each_pair do |media_type, handler_path|
+                      bindings.make_media_type do |mt|
+                        mt.media_type = media_type
+                        entry_name = file_map[handler_path]
+                        mt.handler = package.manifest.items.find {|item| item.entry_name == entry_name}
+                        warn "missing handler for #{media_type}" if mt.handler.nil?
+                      end
+                    end
+                  end
                 end
               end
             else

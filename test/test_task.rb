@@ -9,6 +9,8 @@ class TestTask < Test::Unit::TestCase
     FileUtils::Verbose.rm @epub_name if File.exist? @epub_name
 
     @task = EPUB::Maker::Task.new @epub_name do |task|
+      task.titles = ['EPUB Maker Rake Example'] # temporary
+
       task.base_dir = @base_dir
 
       task.files.include "#{@base_dir}/**/*"
@@ -20,6 +22,15 @@ class TestTask < Test::Unit::TestCase
       task.resources = task.files.dup
       task.resources.exclude /\.opf/
       task.resources.exclude /META\-INF/
+
+      task.navs.include 'OPS/nav.xhtml'
+      task.media_types = {"#{@base_dir}/OPS/slideshow.xml" => 'application/x-demo-slideshow'}
+
+      task.spine = task.resources.dup
+      task.spine.exclude /OPS\/impl\.xhtml\z/
+      task.spine.exclude /\.xml\z/
+
+      task.bindings = {'application/x-demo-slideshow' => "#{@base_dir}/OPS/impl.xhtml"}
     end
   end
 
@@ -36,6 +47,7 @@ class TestTask < Test::Unit::TestCase
       File.join(@base_dir, 'OPS/item-1.xhtml')        => 'OPS/item-1.xhtml',
       File.join(@base_dir, 'OPS/item-2.xhtml')        => 'OPS/item-2.xhtml',
       File.join(@base_dir, 'OPS/nav.xhtml')           => 'OPS/nav.xhtml',
+      File.join(@base_dir, 'OPS/impl.xhtml')          => 'OPS/impl.xhtml',
       File.join(@base_dir, 'OPS/slideshow.xml')       => 'OPS/slideshow.xml'
     }
 
