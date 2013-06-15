@@ -199,7 +199,7 @@ module EPUB
             }
             nav_doc.navigations << nav_nav
 
-            nav.buffer = nav_doc.to_xml
+            nav.content = nav_doc.to_xml
 
             self << nav
           end
@@ -232,16 +232,16 @@ module EPUB
         end
 
         class Item
-          attr_accessor :buffer, :content_file
+          attr_accessor :content, :content_file
 
           # @todo Define proper exception class
           def save(archive)
-            if buffer
-              archive.add_buffer entry_name, buffer
+            if content
+              archive.add_buffer entry_name, content
             elsif content_file
               archive.add_file entry_name, content_file
             else
-              raise 'no buffer nor content_file'
+              raise 'no content nor content_file'
             end
           end
         end
