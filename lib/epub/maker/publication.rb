@@ -246,11 +246,14 @@ module EPUB
             end
           end
 
+          # Save document into EPUB archive when block ended
           def edit
             yield if block_given?
             save
           end
 
+          # Save document into EPUB archive when block ended
+          # @yield [Nokgiri::XML::Document]
           def edit_with_nokogiri
             doc = Nokogiri.XML(read)
             yield doc if block_given?

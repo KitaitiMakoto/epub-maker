@@ -172,7 +172,5 @@ class Pathname
     FileUtils.remove_entry_secure to_path
   end
 
-  def /(other)
-    self + other
-  end
+  alias / +
 end
