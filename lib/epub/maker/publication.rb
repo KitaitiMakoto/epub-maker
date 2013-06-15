@@ -234,12 +234,26 @@ module EPUB
         class Item
           attr_accessor :content, :content_file
 
+          # @param archive [Zip::Archive|nil] archive to save content. If nil, open archive in this method
+          # @raise StandardError when no content nor content_file
+          def save(archive=nil)
+            if archive
+              _save archive
+            else
+              Zip::Archive.open manifest.package.book.epub_file do |archive|
+                _save archive
+              end
+            end
+          end
+
+          private
+
           # @todo Define proper exception class
-          def save(archive)
+          def _save(archive)
             if content
-              archive.add_buffer entry_name, content
+              archive.add_or_replace_buffer entry_name, content
             elsif content_file
-              archive.add_file entry_name, content_file
+              archive.add_or_replace_file entry_name, content_file
             else
               raise 'no content nor content_file'
             end
