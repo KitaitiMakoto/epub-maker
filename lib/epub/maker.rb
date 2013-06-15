@@ -52,7 +52,7 @@ module EPUB
         end
 
         path.open 'wb' do |file|
-          raise "Other process is locking #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
+          raise "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
           move temp_path.to_path, path.to_path
         end
       end
