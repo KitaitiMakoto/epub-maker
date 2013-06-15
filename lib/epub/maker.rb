@@ -1,4 +1,3 @@
-require 'forwardable'
 require 'pathname'
 require 'pathname/common_prefix'
 require 'fileutils'

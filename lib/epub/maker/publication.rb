@@ -246,6 +246,18 @@ module EPUB
             end
           end
 
+          def edit
+            yield if block_given?
+            save
+          end
+
+          def edit_with_nokogiri
+            doc = Nokogiri.XML(read)
+            yield doc if block_given?
+            self.content = doc.to_xml
+            save
+          end
+
           private
 
           # @todo Define proper exception class

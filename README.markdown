@@ -83,9 +83,34 @@ Usage
     EPUB::Maker::Task.new EPUB => HTML do |task|
       task.files = FileList["#{DIR}/**/*"]
       task.files.exclude {|entry| File.directory? entry}
-      task.resources = 
-      task.spine = task.files.
+      task.resources = ...
+      task.spine = task.files.dup
+      task.spine.exclude /(\.css|\.opf|\.xml)\z/
     end
+
+### In-place editing
+
+    require 'epub/maker'
+    
+    book = EPUB::Parser.parse('path/to/book.epub', EPUB::Maker::EDIT_MODE)
+    book.resources.select(&:xhtml?).each do |item|
+      doc = item.content_document.nokogiri
+      title = doc/'title'
+      title.content += ' - Additional Title such like book title'
+      item.content = doc.to_xml
+      item.save
+    end
+
+Shortcut:
+
+    book.resources.select(&:xhtml?).each do |item|
+      item.edit_with_nokogiri do |doc|
+        doc.search('img').each do |img|
+          img['alt'] = '' if img['alt'].nil?
+        end
+      end
+    end
+    # Automatically saved
 
 Todo
 ----

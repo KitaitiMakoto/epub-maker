@@ -8,6 +8,7 @@ class TestImplaceEditing < Test::Unit::TestCase
     @dir = Pathname.mktmpdir('epub-maker-test')
     @file = @dir/'book.epub'
     Epzip.zip @assets_dir.to_s, @file.to_path
+    @book = EPUB::Parser.parse(@file)
   end
 
   def teardown
@@ -16,8 +17,7 @@ class TestImplaceEditing < Test::Unit::TestCase
   end
 
   def test_save_parsed_book
-    book = EPUB::Parser.parse(@file)
-    nav = book.nav
+    nav = @book.nav
     doc = nav.content_document.nokogiri
     title = doc.search('title').first
     title.content = 'Edited Title'
@@ -28,6 +28,24 @@ class TestImplaceEditing < Test::Unit::TestCase
   end
 
   def test_edit
-    assert false
+    item = @book.resources.find(&:xhtml?)
+    item.edit do
+      doc = Nokogiri.XML(item.read)
+      title = doc.search('title').first
+      title.content = 'Edited Title'
+      item.content = doc.to_xml
+    end
+
+    assert_match '<title>Edited Title</title>', item.read
+  end
+
+  def test_edit_with_nokogiri
+    item = @book.resources.find(&:xhtml?)
+    item.edit_with_nokogiri do |doc|
+      title = doc.search('title').first
+      title.content = 'Edited Title'
+    end
+
+    assert_match '<title>Edited Title</title>', item.read
   end
 end
