@@ -38,8 +38,8 @@ module EPUB
       path = Pathname(path) unless path.kind_of? Pathname
       book = EPUB::Book.new
       Pathname.mktmpdir 'epub-maker' do |dir|
-        temp_path = dir + path.basename
-        mimetype = dir + 'mimetype'
+        temp_path = dir/path.basename
+        mimetype = dir/'mimetype'
         mimetype.write EPUB::MIME_TYPE
         Archive::Zip.open temp_path.to_path, :w do |archive|
           file = Archive::Zip::Entry.from_file(mimetype.to_path, compression_codec: Archive::Zip::Codec::Store)
@@ -171,5 +171,9 @@ class Pathname
 
   def remove_entry_secure
     FileUtils.remove_entry_secure to_path
+  end
+
+  def /(other)
+    self + other
   end
 end
