@@ -238,10 +238,16 @@ module EPUB
           # @raise StandardError when no content nor content_file
           def save(archive=nil)
             if archive
-              _save archive
+              if content
+                archive.add_or_replace_buffer entry_name, content
+              elsif content_file
+                archive.add_or_replace_file entry_name, content_file
+              else
+                raise 'no content nor content_file'
+              end
             else
               Zip::Archive.open manifest.package.book.epub_file do |archive|
-                _save archive
+                save archive
               end
             end
           end
@@ -259,19 +265,6 @@ module EPUB
             yield doc if block_given?
             self.content = doc.to_xml
             save
-          end
-
-          private
-
-          # @todo Define proper exception class
-          def _save(archive)
-            if content
-              archive.add_or_replace_buffer entry_name, content
-            elsif content_file
-              archive.add_or_replace_file entry_name, content_file
-            else
-              raise 'no content nor content_file'
-            end
           end
         end
       end
