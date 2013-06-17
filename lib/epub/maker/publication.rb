@@ -258,7 +258,17 @@ module EPUB
             save
           end
 
-          # Save document into EPUB archive when block ended
+          # Save document into EPUB archive at end of block
+          # @yield [REXML::Document]
+          def edit_with_rexml
+            require 'rexml/document'
+            doc = REXML::Document.new(read)
+            yield doc if block_given?
+            self.content = doc.to_s
+            save
+          end
+
+          # Save document into EPUB archive at end of block
           # @yield [Nokgiri::XML::Document]
           def edit_with_nokogiri
             doc = Nokogiri.XML(read)

@@ -39,6 +39,17 @@ class TestImplaceEditing < Test::Unit::TestCase
     assert_match '<title>Edited Title</title>', item.read
   end
 
+  def test_edit_with_rexml
+    require 'rexml/quickpath'
+    item = @book.resources.find(&:xhtml?)
+    item.edit_with_rexml do |doc|
+      title = REXML::QuickPath.first(doc, '//title')
+      title.text = 'Edited Title'
+    end
+
+    assert_match '<title>Edited Title</title>', item.read
+  end
+
   def test_edit_with_nokogiri
     item = @book.resources.find(&:xhtml?)
     item.edit_with_nokogiri do |doc|
