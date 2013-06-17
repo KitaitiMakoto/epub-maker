@@ -43,6 +43,7 @@ class TestMaker < Test::Unit::TestCase
                                 end
               item.content_file = (@fixture_dir + item.entry_name).to_path
               item.properties << 'nav' if content_path.basename.to_path == 'nav.xhtml'
+              item.properties << 'scripted' if content_path.basename.to_path == 'impl.xhtml'
             end
           end
 
