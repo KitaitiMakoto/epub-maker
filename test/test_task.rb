@@ -53,16 +53,4 @@ class TestTask < Test::Unit::TestCase
 
     assert_equal expected, @task.file_map
   end
-
-  def test_when_rootfile_is_given_to_map_then_read_from_file
-    pend
-  end
-
-  def test_when_rootfie_is_not_given_to_map_then_build_xml
-    pend
-  end
-
-  def test_title
-    pend
-  end
 end
