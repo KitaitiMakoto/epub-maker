@@ -104,7 +104,7 @@ Shortcut:
 
 Todo
 ----
-* Multibyte filename(maybe the issue of libzip)
+* Rake task
 
 Contributing
 ------------
