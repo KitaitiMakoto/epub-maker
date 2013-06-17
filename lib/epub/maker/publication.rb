@@ -23,6 +23,9 @@ module EPUB
             (EPUB::Publication::Package::CONTENT_MODELS - [:bindings, :guide]).each do |model|
               __send__(model).to_xml_fragment xml
             end
+            if bindings and !bindings.media_types.empty?
+              bindings.to_xml_fragment xml
+            end
           end
         }.to_xml
       end
