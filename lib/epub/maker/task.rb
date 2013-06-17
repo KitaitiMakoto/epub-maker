@@ -76,6 +76,7 @@ module EPUB
                         end
                       item.content_file = resource
                       item.properties << 'nav' if navs.include? item.entry_name
+                      item.properties << 'scripted' unless Nokogiri.XML(open(resource)).search('script').empty?
                     end
                   end
                 end
