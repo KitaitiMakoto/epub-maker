@@ -21,9 +21,6 @@ Or install it yourself as:
 Usage
 -----
 
-### Command-line tools ###
-
-
 ### Library ###
 
     require 'epub/maker'
