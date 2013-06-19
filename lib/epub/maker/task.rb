@@ -3,7 +3,7 @@ require 'rake/tasklib'
 require 'epub/maker'
 
 module EPUB
-  class Maker
+  module Maker
     class Task < ::Rake::TaskLib
       attr_accessor :target, :base_dir, :files, :file_map_proc,
                     :container, :rootfiles, :make_rootfiles, :package_direction, :language,
