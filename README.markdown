@@ -1,7 +1,7 @@
 EPUB Maker
 ==========
 
-This library supports making EPUB books
+This library supports making and editing EPUB books
 
 Installation
 ------------
