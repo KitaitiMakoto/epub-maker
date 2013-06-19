@@ -138,6 +138,7 @@ Requirements
 Todo
 ----
 * Refine Rake task
+* Makable from directory/package document file
 
 Recent Changes
 --------------
