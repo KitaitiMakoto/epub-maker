@@ -69,6 +69,8 @@ Usage
       end
     end
 
+For structure of EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
+
 ### Rake task ###
 
 **CAUTION**: Still work in progress. API will be modified in the future.
@@ -122,6 +124,10 @@ Shortcut:
       end
     end
     # Automatically saved
+
+For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
+
+[epub-parser-doc]: http://rubydoc.info/gems/epub-parser/frames
 
 Todo
 ----
