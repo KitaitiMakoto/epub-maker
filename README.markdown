@@ -82,7 +82,7 @@ Stil work in progress.
 
     require 'epub/maker'
     
-    book = EPUB::Parser.parse('path/to/book.epub', EPUB::Maker::EDIT_MODE)
+    book = EPUB::Parser.parse('path/to/book.epub')
     book.resources.select(&:xhtml?).each do |item|
       doc = item.content_document.nokogiri
       title = doc/'title'
