@@ -130,6 +130,11 @@ For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc]
 
 [epub-parser-doc]: http://rubydoc.info/gems/epub-parser/frames
 
+Requirements
+------------
+* Ruby 2.0 or later
+* C compiler to build zipruby and Nokogiri gems
+
 Todo
 ----
 * Refine Rake task
