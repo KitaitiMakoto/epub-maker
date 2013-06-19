@@ -48,7 +48,7 @@ Usage
               item.href = Addressable::URI.parse(href.to_s)
               item.media_type = case content_path.extname
                                 when '.xhtml' then 'application/xhtml+xml'
-                                when '.xml' then 'application/xml'
+                                when '.png' then 'image/png'
                                 end
               item.content_file = (@fixture_dir + item.entry_name).to_path
               item.properties << 'nav' if content_path.basename.to_path == 'nav.xhtml'
