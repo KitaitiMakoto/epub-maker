@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = EPUB::Maker::VERSION
   gem.authors       = ["KITAITI Makoto"]
   gem.email         = ["KitaitiMakoto@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{This library supports making and editing EPUB books}
+  gem.summary       = %q{EPUB Maker}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
