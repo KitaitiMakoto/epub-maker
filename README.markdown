@@ -119,13 +119,12 @@ For structure of EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
 Shortcut:
 
     book.resources.select(&:xhtml?).each do |item|
-      item.edit_with_nokogiri do |doc|
+      item.edit_with_nokogiri do |doc| # Nokogiri::XML::Document is passed to block
         doc.search('img').each do |img|
           img['alt'] = '' if img['alt'].nil?
         end
-      end
-    end
-    # Automatically saved
+      end # item.content = doc.to_xml is called automatically
+    end # item.save is called automatically
 
 For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
 
