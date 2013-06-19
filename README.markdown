@@ -78,7 +78,7 @@ For structure of EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
     require 'epub/maker/task'
 
     DIR = 'path/to/dir/holding/contents'
-    EPUB_FILE + '.epub'
+    EPUB_FILE = DIR + '.epub'
     EPUB::Maker::Task.new EPUB_FILE do |task|
       task.titles = ['EPUB Maker Rake Example']
 
