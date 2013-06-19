@@ -73,7 +73,9 @@ For structure of EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
 
 ### Rake task ###
 
-**CAUTION**: Still work in progress. API will be modified in the future.
+**CAUTION**: Still work in progress. File path to require and API will be modified in the future.
+
+    require 'epub/maker/task'
 
     DIR = 'path/to/dir/holding/contents'
     EPUB::Maker::Task.new @epub_name do |task|
