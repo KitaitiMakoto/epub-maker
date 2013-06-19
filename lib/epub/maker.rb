@@ -6,6 +6,7 @@ require 'time'
 require 'uuid'
 require 'archive/zip'
 require 'epub'
+require 'epub/constants'
 require 'epub/book'
 require 'epub/parser'
 require "epub/maker/version"
@@ -14,10 +15,6 @@ require 'epub/maker/publication'
 require 'epub/maker/content_document'
 
 module EPUB
-  module Constants
-    MIME_TYPE = 'application/epub+zip'
-  end
-
   module Maker
     class << self
       # @param path [Pathname|#to_path|String]
@@ -29,7 +26,7 @@ module EPUB
         Pathname.mktmpdir 'epub-maker' do |dir|
           temp_path = dir/path.basename
           mimetype = dir/'mimetype'
-          mimetype.write EPUB::MIME_TYPE
+          mimetype.write EPUB::MediaType::EPUB
           Archive::Zip.open temp_path.to_path, :w do |archive|
             file = Archive::Zip::Entry.from_file(mimetype.to_path, compression_codec: Archive::Zip::Codec::Store)
             archive.add_entry file
