@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.0.0'
 
   gem.add_runtime_dependency 'zipruby'
-  gem.add_runtime_dependency 'epub-parser'
+  gem.add_runtime_dependency 'epub-parser', '>= 0.1.5'
   gem.add_runtime_dependency 'pathname-common_prefix'
   gem.add_runtime_dependency 'mime-types'
   gem.add_runtime_dependency 'ruby-uuid'
