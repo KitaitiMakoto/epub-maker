@@ -71,7 +71,33 @@ Usage
 
 ### Rake task ###
 
-Stil work in progress.
+**CAUTION**: Still work in progress. API will be modified in the future.
+
+    DIR = 'path/to/dir/holding/contents'
+    EPUB::Maker::Task.new @epub_name do |task|
+      task.titles = ['EPUB Maker Rake Example']
+
+      task.base_dir = DIR
+
+      task.files.include "#{task.base_dir}/**/*"
+      task.files.exclude {|entry| ! File.file? entry}
+
+      task.rootfile = "#{DIR}/OPS/contents.opf"
+      task.make_rootfiles = true
+
+      task.resources = task.files.dup
+      task.resources.exclude /\.opf/
+      task.resources.exclude /META\-INF/
+
+      task.navs.include 'OPS/nav.xhtml'
+      task.media_types = {"#{DIR}/OPS/slideshow.xml" => 'application/x-demo-slideshow'}
+
+      task.spine = task.resources.dup
+      task.spine.exclude /OPS\/impl\.xhtml\z/
+      task.spine.exclude /\.xml\z/
+
+      task.bindings = {'application/x-demo-slideshow' => "#{DIR}/OPS/impl.xhtml"}
+    end
 
 ### In-place editing
 
