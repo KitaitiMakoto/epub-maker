@@ -132,7 +132,7 @@ For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc]
 
 Todo
 ----
-* Rake task
+* Refine Rake task
 
 Recent Changes
 --------------
