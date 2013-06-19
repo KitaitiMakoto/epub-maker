@@ -6,7 +6,6 @@ This library supports making EPUB ebooks and provides commands for it.
 Installation
 ------------
 
-<!--
 Add this line to your application's Gemfile:
 
     gem 'epub-maker'
@@ -18,7 +17,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install epub-maker
--->
 
 Usage
 -----
