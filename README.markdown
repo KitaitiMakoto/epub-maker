@@ -138,7 +138,9 @@ Requirements
 
 Todo
 ----
+* Encode filenames as UTF-8 on adding them to package
 * Refine Rake task
+  * Autodetection of media types
 * Makable from directory/package document file
 
 Recent Changes
