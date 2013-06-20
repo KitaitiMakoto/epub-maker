@@ -109,5 +109,7 @@ class Pathname
     FileUtils.remove_entry_secure to_path
   end
 
-  alias / +
+  unless method_defined? :/
+    alias / +
+  end
 end
