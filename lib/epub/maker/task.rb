@@ -26,6 +26,7 @@ module EPUB
         @base_dir = Dir.pwd
         @rootfiles = FileList.new
         @make_rootfiles = false
+        @resources = FileList.new
         @package_direction = 'rtl'
         @language = 'en'
         @file_map = {}

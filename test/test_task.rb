@@ -13,13 +13,11 @@ class TestTask < Test::Unit::TestCase
 
       task.base_dir = @base_dir
 
-      task.files.include "#{@base_dir}/**/*"
-      task.files.exclude {|entry| ! File.file? entry}
-
       task.rootfile = "#{@base_dir}/OPS/ルートファイル.opf"
       task.make_rootfiles = true
 
-      task.resources = task.files.dup
+      task.resources.include "#{@base_dir}/**/*"
+      task.resources.exclude {|entry| ! File.file? entry}
       task.resources.exclude /\.opf/
       task.resources.exclude /META\-INF/
 
@@ -31,6 +29,9 @@ class TestTask < Test::Unit::TestCase
       task.spine.exclude /\.xml\z/
 
       task.bindings = {'application/x-demo-slideshow' => "#{@base_dir}/OPS/impl.xhtml"}
+
+      task.files = task.rootfiles + task.resources
+      task.files.include "#{@base_dir}/META-INF/*.xml"
     end
   end
 
