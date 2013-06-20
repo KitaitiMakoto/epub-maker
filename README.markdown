@@ -71,6 +71,33 @@ Usage
 
 For structure of EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
 
+### In-place editing
+
+    require 'epub/maker'
+    
+    book = EPUB::Parser.parse('path/to/book.epub')
+    book.resources.select(&:xhtml?).each do |item|
+      doc = item.content_document.nokogiri
+      title = doc/'title'
+      title.content += ' - Additional Title such like book title'
+      item.content = doc.to_xml
+      item.save
+    end
+
+Shortcut:
+
+    book.resources.select(&:xhtml?).each do |item|
+      item.edit_with_nokogiri do |doc| # Nokogiri::XML::Document is passed to block
+        doc.search('img').each do |img|
+          img['alt'] = '' if img['alt'].nil?
+        end
+      end # item.content = doc.to_xml is called automatically
+    end # item.save is called automatically
+
+For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
+
+[epub-parser-doc]: http://rubydoc.info/gems/epub-parser/frames
+
 ### Rake task ###
 
 **CAUTION**: Still work in progress. File path to require and API will be modified in the future.
@@ -103,33 +130,6 @@ For structure of EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
 
       task.bindings = {'application/x-demo-slideshow' => "#{DIR}/OPS/impl.xhtml"}
     end
-
-### In-place editing
-
-    require 'epub/maker'
-    
-    book = EPUB::Parser.parse('path/to/book.epub')
-    book.resources.select(&:xhtml?).each do |item|
-      doc = item.content_document.nokogiri
-      title = doc/'title'
-      title.content += ' - Additional Title such like book title'
-      item.content = doc.to_xml
-      item.save
-    end
-
-Shortcut:
-
-    book.resources.select(&:xhtml?).each do |item|
-      item.edit_with_nokogiri do |doc| # Nokogiri::XML::Document is passed to block
-        doc.search('img').each do |img|
-          img['alt'] = '' if img['alt'].nil?
-        end
-      end # item.content = doc.to_xml is called automatically
-    end # item.save is called automatically
-
-For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc].
-
-[epub-parser-doc]: http://rubydoc.info/gems/epub-parser/frames
 
 Requirements
 ------------
