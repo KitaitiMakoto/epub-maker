@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 require_relative 'helper'
-require 'stringio'
 require 'tmpdir'
 require 'fileutils'
 require 'epub/maker'
