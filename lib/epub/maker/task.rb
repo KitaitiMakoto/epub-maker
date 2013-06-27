@@ -1,5 +1,6 @@
 require 'rake'
 require 'rake/tasklib'
+require 'mimemagic'
 require 'epub/maker'
 
 module EPUB
@@ -132,10 +133,14 @@ module EPUB
       # @param resource [String] resource path to detect media type
       # @return [String] detected media type
       def detect_media_type(resource)
-        media_types[resource] ||
-          case File.extname(resource).downcase
-          when '.xhtml', '.html' then 'application/xhtml+xml'
-          end
+        detected = media_types[resource]
+        return detected if detected
+
+        detected = MimeMagic.by_magic(open(resource)).type
+        detected = 'application/xhtml+xml' if detected == 'text/html'
+        return detected if detected
+
+        MimeMagic.by_path(resource).type
       end
     end
   end

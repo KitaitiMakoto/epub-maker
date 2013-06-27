@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'zipruby'
   gem.add_runtime_dependency 'epub-parser', '>= 0.1.5'
   gem.add_runtime_dependency 'pathname-common_prefix'
-  gem.add_runtime_dependency 'mime-types'
+  gem.add_runtime_dependency 'mimemagic'
   gem.add_runtime_dependency 'ruby-uuid'
   gem.add_runtime_dependency 'archive-zip'
   gem.add_runtime_dependency 'rake'
