@@ -44,6 +44,7 @@ module EPUB
           raise Error, "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
           ($VERBOSE ? ::FileUtils::Verbose : ::FileUtils).move temp_path.to_path, path.to_path
         end
+        dir.remove_entry_secure
         book
 
         # validate
