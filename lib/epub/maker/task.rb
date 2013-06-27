@@ -66,13 +66,13 @@ module EPUB
                 package.make_manifest do |manifest|
                   rootfile_path = Pathname(package.book.rootfile_path)
                   resources.each_with_index do |resource, index|
-                    resource_path = Pathname(file_map[resource])
+                    resource_iri = Pathname(file_map[resource])
                     manifest.make_item do |item|
                       item.id = "item-#{index + 1}"
-                      href = resource_path.relative_path_from(rootfile_path.parent)
+                      href = resource_iri.relative_path_from(rootfile_path.parent)
                       item.href = Addressable::URI.parse(href.to_path)
                       item.media_type = media_types[resource] ||
-                        case resource_path.extname
+                        case resource_iri.extname
                         when '.xhtml', '.html' then 'application/xhtml+xml'
                         end
                       item.content_file = resource
