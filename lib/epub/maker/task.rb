@@ -133,7 +133,7 @@ module EPUB
       # @return [String] detected media type
       def detect_media_type(resource)
         media_types[resource] ||
-          case File.extname(resource)
+          case File.extname(resource).downcase
           when '.xhtml', '.html' then 'application/xhtml+xml'
           end
       end
