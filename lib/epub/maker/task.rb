@@ -5,6 +5,8 @@ require 'epub/maker'
 module EPUB
   module Maker
     class Task < ::Rake::TaskLib
+      DUMMY_ROOT_IRI = Addressable::URI.parse('dummy:///').freeze
+
       attr_accessor :target, :base_dir, :files, :file_map_proc,
                     :container, :rootfiles, :make_rootfiles, :package_direction, :language,
                     :titles, :contributors,
@@ -64,15 +66,14 @@ module EPUB
                 end
 
                 package.make_manifest do |manifest|
-                  rootfile_path = Pathname(package.book.rootfile_path)
+                  rootfile_absolute_path = DUMMY_ROOT_IRI + package.book.ocf.container.rootfile.full_path
                   resources.each_with_index do |resource, index|
-                    resource_iri = Pathname(file_map[resource])
+                    resource_absolute_iri = DUMMY_ROOT_IRI + file_map[resource]
                     manifest.make_item do |item|
                       item.id = "item-#{index + 1}"
-                      href = resource_iri.relative_path_from(rootfile_path.parent)
-                      item.href = Addressable::URI.parse(href.to_path)
+                      item.href = resource_absolute_iri.route_from(rootfile_absolute_path)
                       item.media_type = media_types[resource] ||
-                        case resource_iri.extname
+                        case resource_absolute_iri.extname
                         when '.xhtml', '.html' then 'application/xhtml+xml'
                         end
                       item.content_file = resource
