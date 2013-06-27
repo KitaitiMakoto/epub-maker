@@ -16,6 +16,8 @@ require 'epub/maker/content_document'
 
 module EPUB
   module Maker
+    class Error < StandardError; end
+
     class << self
       # @param path [Pathname|#to_path|String]
       # @todo Add option whether mv blocks or not when file locked already
@@ -38,7 +40,7 @@ module EPUB
           end
 
           path.open 'wb' do |file|
-            raise "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
+            raise Error, "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
             ($VERBOSE ? ::FileUtils::Verbose : ::FileUtils).move temp_path.to_path, path.to_path
           end
         end
