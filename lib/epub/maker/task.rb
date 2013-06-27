@@ -72,10 +72,7 @@ module EPUB
                     manifest.make_item do |item|
                       item.id = "item-#{index + 1}"
                       item.href = resource_absolute_iri.route_from(rootfile_absolute_path)
-                      item.media_type = media_types[resource] ||
-                        case resource_absolute_iri.extname
-                        when '.xhtml', '.html' then 'application/xhtml+xml'
-                        end
+                      item.media_type = detect_media_type(resource)
                       item.content_file = resource
                       item.properties << 'nav' if navs.include? item.entry_name
                       item.properties << 'scripted' unless Nokogiri.XML(open(resource)).search('script').empty?
@@ -130,6 +127,15 @@ module EPUB
           end
         end
         @file_map
+      end
+
+      # @param resource [String] resource path to detect media type
+      # @return [String] detected media type
+      def detect_media_type(resource)
+        media_types[resource] ||
+          case File.extname(resource)
+          when '.xhtml', '.html' then 'application/xhtml+xml'
+          end
       end
     end
   end
