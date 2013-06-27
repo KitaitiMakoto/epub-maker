@@ -147,6 +147,7 @@ Recent Changes
 --------------
 ### 0.0.2
 * Detect media type of files more strictly
+* Keep temporary directory remained on error in `EPUB::Maker.make`
 
 ### 0.0.1
 * Initial release!
