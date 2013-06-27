@@ -145,6 +145,9 @@ Todo
 
 Recent Changes
 --------------
+### 0.0.2
+* Detect media type of files more strictly
+
 ### 0.0.1
 * Initial release!
 
