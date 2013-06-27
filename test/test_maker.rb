@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require_relative 'helper'
+require 'stringio'
 require 'tmpdir'
 require 'fileutils'
 require 'epub/maker'
@@ -62,5 +63,18 @@ class TestMaker < Test::Unit::TestCase
     end
 
     assert_valid_epub @file.to_path
+  end
+
+  def test_working_directory_remains_when_error_occurred
+    error_message = nil
+    begin
+      EPUB::Maker.make @file do |book|
+      end
+    rescue => error
+      error_message = error.message
+    end
+    dirname = error_message.match(/\[EPUB::Maker\].*:\s*(.+)\Z/m).captures.last
+
+    assert_path_exist dirname
   end
 end

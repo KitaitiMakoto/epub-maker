@@ -1,3 +1,4 @@
+require 'English'
 require 'pathname'
 require 'pathname/common_prefix'
 require 'fileutils'
@@ -25,30 +26,34 @@ module EPUB
       def make(path)
         path = Pathname(path) unless path.kind_of? Pathname
         book = EPUB::Book.new
-        Pathname.mktmpdir 'epub-maker' do |dir|
-          temp_path = dir/path.basename
-          mimetype = dir/'mimetype'
-          mimetype.write EPUB::MediaType::EPUB
-          Archive::Zip.open temp_path.to_path, :w do |archive|
-            file = Archive::Zip::Entry.from_file(mimetype.to_path, compression_codec: Archive::Zip::Codec::Store)
-            archive.add_entry file
-          end
+        dir = Pathname.mktmpdir 'epub-maker'
+        temp_path = dir/path.basename
+        mimetype = dir/'mimetype'
+        mimetype.write EPUB::MediaType::EPUB
+        Archive::Zip.open temp_path.to_path, :w do |archive|
+          file = Archive::Zip::Entry.from_file(mimetype.to_path, compression_codec: Archive::Zip::Codec::Store)
+          archive.add_entry file
+        end
 
-          Zip::Archive.open temp_path.to_path do |archive|
-            yield book if block_given?
-            book.save archive
-          end
+        Zip::Archive.open temp_path.to_path do |archive|
+          yield book if block_given?
+          book.save archive
+        end
 
-          path.open 'wb' do |file|
-            raise Error, "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
-            ($VERBOSE ? ::FileUtils::Verbose : ::FileUtils).move temp_path.to_path, path.to_path
-          end
+        path.open 'wb' do |file|
+          raise Error, "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
+          ($VERBOSE ? ::FileUtils::Verbose : ::FileUtils).move temp_path.to_path, path.to_path
         end
         book
 
         # validate
         # build_xml
         # archive
+      rescue => error
+        raise error.exception([
+                error.message,
+                "[#{self}]Working directory remained at: #{dir}"
+              ].join($RS))
       end
     end
   end
