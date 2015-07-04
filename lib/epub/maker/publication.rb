@@ -183,6 +183,12 @@ module EPUB
           self.dc_creators = [creator]
           name
         end
+
+        class Meta
+          def valid?
+            property
+          end
+        end
       end
 
       class Manifest
