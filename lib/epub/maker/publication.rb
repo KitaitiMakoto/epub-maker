@@ -40,6 +40,17 @@ module EPUB
         self
       end
 
+      def edit(archive=nil)
+        yield self if block_given?
+        if archive
+          save archive
+        else
+          Zip::Archive.open manifest.package.book.epub_file do |archive|
+            save archive
+          end
+        end
+      end
+
       def make_metadata
         self.metadata = Metadata.new
         metadata.make do
