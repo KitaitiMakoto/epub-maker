@@ -143,6 +143,7 @@ module EPUB
             end
 
             metas.each do |meta|
+              next unless meta.valid? # TODO: Consider whther to drop or keep as is
               node = xml.meta(meta.content)
               to_xml_attribute node, meta, [:property, :id, :scheme]
               node['refines'] = "##{meta.refines.id}" if meta.refines
