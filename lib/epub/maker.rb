@@ -61,28 +61,30 @@ module EPUB
     end
   end
 
-  def make_ocf
-    self.ocf = OCF.new
-    ocf.make do |ocf|
-      yield ocf if block_given?
+  module Book::Features
+    def make_ocf
+      self.ocf = OCF.new
+      ocf.make do |ocf|
+        yield ocf if block_given?
+      end
+      ocf
     end
-    ocf
-  end
 
-  def make_package
-    self.package = Publication::Package.new
-    package.make do |package|
-      yield package if block_given?
+    def make_package
+      self.package = Publication::Package.new
+      package.make do |package|
+        yield package if block_given?
+      end
+      package
     end
-    package
-  end
 
-  # @param archive [Zip::Archive]
-  def save(archive)
-    ocf.save archive
-    package.save archive
-    resources.each do |item|
-      item.save archive
+    # @param archive [Zip::Archive]
+    def save(archive)
+      ocf.save archive
+      package.save archive
+      resources.each do |item|
+        item.save archive
+      end
     end
   end
 end
