@@ -6,6 +6,7 @@ end
 require 'test/unit/full'
 require 'open3'
 require 'shellwords'
+require 'pry'
 class Test::Unit::TestCase
   def assert_valid_epub(file)
     jar = File.join(ENV['GEM_HOME'], 'gems', 'epubcheck-3.0.0', 'lib', 'epubcheck-3.0', 'epubcheck-3.0.jar')
