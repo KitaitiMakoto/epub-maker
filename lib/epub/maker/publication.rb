@@ -84,7 +84,7 @@ module EPUB
       end
 
       def save(archive)
-        archive.add_buffer book.rootfile_path, to_xml
+        archive.add_or_replace_buffer book.rootfile_path, to_xml
       end
 
       module ContentModel
