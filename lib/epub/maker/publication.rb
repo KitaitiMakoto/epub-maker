@@ -140,7 +140,7 @@ module EPUB
             links.each do |link|
               node = xml.link
               to_xml_attribute node, link, [:href, :id, :media_type]
-              node['rel'] = link.rel.join(' ') if link.rel
+              node['rel'] = link.rel.to_a.join(' ') if link.rel
               node['refines'] = "##{link.refines.id}" if link.refines
             end
           }
@@ -227,7 +227,7 @@ module EPUB
             items.each do |item|
               item_node = xml.item_
               to_xml_attribute item_node, item, [:id, :href, :media_type, :media_overlay]
-              item_node['properties'] = item.properties.join(' ') unless item.properties.empty?
+              item_node['properties'] = item.properties.to_a.join(' ') unless item.properties.empty?
               item_node['fallback'] = item.fallback.id if item.fallback
             end
           }
