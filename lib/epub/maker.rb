@@ -115,14 +115,6 @@ class Pathname
     FileUtils.remove_entry_secure to_path
   end
 
-  unless method_defined? :write
-    def write(string, mode='w', perm=0666)
-      open mode, perm do |file|
-        file << string
-      end
-    end
-  end
-
   unless method_defined? :/
     alias / +
   end
