@@ -3,7 +3,8 @@ SimpleCov.start do
   add_filter '/test|deps/'
 end
 
-require 'test/unit/full'
+require 'test/unit'
+require 'test/unit/notify'
 require 'open3'
 require 'shellwords'
 require 'pry'
