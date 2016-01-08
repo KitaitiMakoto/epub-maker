@@ -29,7 +29,8 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'rake'
   gem.add_runtime_dependency 'addressable', '>= 2.3.5'
 
-  gem.add_development_dependency 'test-unit-full'
+  gem.add_development_dependency 'test-unit'
+  gem.add_development_dependency 'test-unit-notify'
   gem.add_development_dependency 'epubcheck'
   gem.add_development_dependency 'epzip'
   gem.add_development_dependency 'simplecov'
