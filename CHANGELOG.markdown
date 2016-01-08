@@ -1,3 +1,8 @@
+0.0.3
+-----
+
+* Bump up required Ruby version: >= 2.0.0 -> >= 2.1.0
+
 0.0.2
 -----
 
