@@ -5,8 +5,10 @@ module EPUB
     class PhysicalContainer
       class Zipruby < self
         def save(path_name, content)
-          Zip::Archive.open @container_path do |archive|
-            archive.add_or_replace_buffer path_name, content
+          if @archive
+            @archive.add_or_replace_buffer path_name, content
+          else
+            open {|container| container.save(path_name, content)}
           end
         end
       end
