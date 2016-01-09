@@ -2,6 +2,7 @@
 -----
 
 * Bump up required Ruby version: >= 2.0.0 -> >= 2.1.0
+* Use PhysicalContainer to save contents into EPUB file
 
 0.0.2
 -----
