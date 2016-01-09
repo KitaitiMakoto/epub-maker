@@ -134,7 +134,7 @@ For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc]
 Requirements
 ------------
 * Ruby 2.0 or later
-* C compiler to build zipruby and Nokogiri gems
+* C compiler to build Nokogiri gems
 
 Todo
 ----
