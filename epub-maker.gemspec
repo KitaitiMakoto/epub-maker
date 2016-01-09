@@ -20,7 +20,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.required_ruby_version = '>= 2.1.0'
 
-  gem.add_runtime_dependency 'zipruby'
   gem.add_runtime_dependency 'epub-parser', '>= 0.2.0'
   gem.add_runtime_dependency 'pathname-common_prefix'
   gem.add_runtime_dependency 'mimemagic'
@@ -29,6 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'rake'
   gem.add_runtime_dependency 'addressable', '>= 2.3.5'
 
+  gem.add_development_dependency 'zipruby'
   gem.add_development_dependency 'test-unit'
   gem.add_development_dependency 'test-unit-notify'
   gem.add_development_dependency 'epubcheck'
