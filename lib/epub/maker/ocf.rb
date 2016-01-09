@@ -1,4 +1,5 @@
 require 'epub/ocf'
+require 'epub/maker/ocf/physical_container'
 
 # @todo Use refinement
 module EPUB
