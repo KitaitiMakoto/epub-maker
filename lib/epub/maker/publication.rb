@@ -40,15 +40,9 @@ module EPUB
         self
       end
 
-      def edit(archive=nil)
+      def edit
         yield self if block_given?
-        if archive
-          save archive
-        else
-          Zip::Archive.open manifest.package.book.epub_file do |archive|
-            save archive
-          end
-        end
+        save
       end
 
       def make_metadata
@@ -83,8 +77,8 @@ module EPUB
         bindings
       end
 
-      def save(archive)
-        archive.add_or_replace_buffer book.rootfile_path, to_xml
+      def save
+        book.container_adapter.save book.epub_file, book.rootfile_path, to_xml
       end
 
       module ContentModel
@@ -255,22 +249,19 @@ module EPUB
         class Item
           attr_accessor :content, :content_file
 
-          # @param archive [Zip::Archive|nil] archive to save content. If nil, open archive in this method
           # @raise StandardError when no content nor content_file
-          def save(archive=nil)
-            if archive
+          # @todo Don't read content from file when +content_file+ exists. If container adapter is Archive::Zip, it writes content to file twice.
+          def save
+            content_to_save =
               if content
-                archive.add_or_replace_buffer entry_name, content
+                content
               elsif content_file
-                archive.add_or_replace_file entry_name, content_file
+                File.read(content_file)
               else
                 raise 'no content nor content_file'
               end
-            else
-              Zip::Archive.open manifest.package.book.epub_file do |archive|
-                save archive
-              end
-            end
+            book = manifest.package.book
+            book.container_adapter.save book.epub_file, entry_name, content_to_save
           end
 
           # Save document into EPUB archive when block ended

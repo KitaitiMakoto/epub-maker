@@ -11,9 +11,8 @@ module EPUB
       self
     end
 
-    # @param archive [Zip::Archive] path to archive file
-    def save(archive)
-      self.container.save archive if self.container
+    def save
+      book.container_adapter.save book.epub_file, File.join(DIRECTORY, Container::FILE), self.container.to_xml if self.container
     end
 
     # @overload make_container
@@ -40,11 +39,6 @@ module EPUB
             }
           }
         }.to_xml
-      end
-
-      # @param archive [Zip::Archive]
-      def save(archive)
-        archive.add_buffer File.join(DIRECTORY, Container::FILE), to_xml
       end
 
       # @option full_path [String|nil] full path to package document file in container such like "OPS/content.opf"

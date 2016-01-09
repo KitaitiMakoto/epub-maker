@@ -35,16 +35,16 @@ module EPUB
           archive.add_entry file
         end
 
-        Zip::Archive.open temp_path.to_path do |archive|
-          yield book if block_given?
-          book.save archive
-        end
+        book.epub_file = temp_path.to_path
+        yield book if block_given?
+        book.save
 
         path.open 'wb' do |file|
           raise Error, "File locked by other process: #{path}" unless file.flock File::LOCK_SH|File::LOCK_NB
           ($VERBOSE ? ::FileUtils::Verbose : ::FileUtils).move temp_path.to_path, path.to_path
         end
         dir.remove_entry_secure
+        book.epub_file = path.to_path
         book
 
         # validate
@@ -78,12 +78,12 @@ module EPUB
       package
     end
 
-    # @param archive [Zip::Archive]
-    def save(archive)
-      ocf.save archive
-      package.save archive
+    # @param archive [OCF::PhysicalContainer]
+    def save
+      ocf.save
+      package.save
       resources.each do |item|
-        item.save archive
+        item.save
       end
     end
   end
