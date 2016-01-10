@@ -38,6 +38,4 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'pry-doc'
   gem.add_development_dependency 'yard'
   gem.add_development_dependency 'redcarpet'
-  gem.add_development_dependency 'gem-man'
-  gem.add_development_dependency 'ronn'
 end
