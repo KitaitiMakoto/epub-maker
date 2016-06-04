@@ -73,7 +73,8 @@ module EPUB
     end
 
     def make_package
-      self.package = Publication::Package.new
+      package = Publication::Package.new
+      package.book = self
       package.make do |package|
         yield package if block_given?
       end
