@@ -13,11 +13,12 @@ module EPUB
   class OCF
     class PhysicalContainer
       class << self
-        def save(container_path, path_name, content)
+        def write(container_path, path_name, content)
           open(container_path) {|container|
-            container.save(path_name, content)
+            container.write(path_name, content)
           }
         end
+        alias save write
       end
     end
   end
