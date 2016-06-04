@@ -59,6 +59,8 @@ module EPUB
 
             if make_rootfiles
               book.make_package do |package|
+                book.ocf.container.rootfile.package = package
+
                 package.dir = package_direction
 
                 package.make_metadata do |metadata|
