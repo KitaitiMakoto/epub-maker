@@ -78,6 +78,8 @@ module EPUB
       package.make do |package|
         yield package if block_given?
       end
+      no_package_rootfile = rootfiles.find {|rf| rf.package.nil?}
+      no_package_rootfile.package = package if no_package_rootfile
       package
     end
 
