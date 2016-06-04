@@ -56,7 +56,9 @@ module EPUB
                   error.message,
                   "[#{self}]Working directory remained at: #{dir}"
                 ].join($RS))
-        backtrace.unshift("#{__FILE__}:#{__LINE__}:in `rescue in #{__method__}'"); error.set_backtrace backtrace; raise error
+        backtrace.unshift("#{__FILE__}:#{__LINE__}:in `rescue in #{__method__}'")
+        error.set_backtrace backtrace
+        raise error
       end
     end
   end
