@@ -4,6 +4,7 @@ module EPUB
   class OCF
     class PhysicalContainer
       class ArchiveZip < self
+        # @todo Write multiple files at once
         def write(path_name, content)
           ::Dir.mktmpdir do |dir|
             tmp_archive_path = ::File.join(dir, ::File.basename(@container_path) + '.tmp')
