@@ -6,9 +6,32 @@ module EPUB
       class ArchiveZip < self
         def write(path_name, content)
           ::Dir.mktmpdir do |dir|
+            tmp_archive_path = ::File.join(dir, ::File.basename(@container_path) + '.tmp')
             path = ::File.join(dir, ::File.basename(path_name))
-            ::File.write path, content
-            Archive::Zip.archive @container_path, path, path_prefix: ::File.dirname(path_name)
+            ::File.open @container_path do |archive_in|
+              ::File.open tmp_archive_path, 'w' do |archive_out|
+                archive_out.binmode
+                Archive::Zip.open archive_in, :r do |z_in|
+                  Archive::Zip.open archive_out, :w do |z_out|
+                    updated = false
+                    z_in.each do |entry|
+                      if entry.zip_path == path_name
+                        entry.file_data = StringIO.new(content)
+                        updated = true
+                      end
+                      z_out << entry
+                    end
+                    unless updated
+                      entry = Archive::Zip::Entry::File.new(path_name)
+                      entry.file_data = StringIO.new(content)
+                      z_out << entry
+                    end
+                  end
+                end
+              end
+            end
+            ::File.chmod 0666 & ~::File.umask, tmp_archive_path
+            ::File.rename tmp_archive_path, @container_path
           end
         end
         alias save write
