@@ -1,3 +1,8 @@
+0.0.4
+-----
+
+* API change: #save -> #write for PhysicalContainer classes
+
 0.0.3
 -----
 
