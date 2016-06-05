@@ -85,7 +85,7 @@ module EPUB
 
     def save
       ocf.save
-      package.save
+      packages.each(&:save)
       resources.each do |item|
         item.save
       end
