@@ -78,7 +78,7 @@ module EPUB
       end
 
       def save
-        book.container_adapter.save book.epub_file, book.rootfile_path, to_xml
+        book.container_adapter.write book.epub_file, book.rootfile_path, to_xml
       end
 
       module ContentModel
@@ -261,7 +261,7 @@ module EPUB
                 raise 'no content nor content_file'
               end
             book = manifest.package.book
-            book.container_adapter.save book.epub_file, entry_name, content_to_save
+            book.container_adapter.write book.epub_file, entry_name, content_to_save
           end
 
           # Save document into EPUB archive when block ended

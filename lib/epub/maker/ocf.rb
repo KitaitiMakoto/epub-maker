@@ -12,7 +12,7 @@ module EPUB
     end
 
     def save
-      book.container_adapter.save book.epub_file, File.join(DIRECTORY, Container::FILE), self.container.to_xml if self.container
+      book.container_adapter.write book.epub_file, File.join(DIRECTORY, Container::FILE), self.container.to_xml if self.container
     end
 
     # @overload make_container
