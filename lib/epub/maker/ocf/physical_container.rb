@@ -18,7 +18,11 @@ module EPUB
             container.write(path_name, content)
           }
         end
-        alias save write
+
+        def save(container_path, path_name, content)
+          warn "EPUB::OCF::PhysicalContainer.#{__method__} is deprecated. Use .write instead"
+          write(container_path, path_name, content)
+        end
       end
     end
   end
