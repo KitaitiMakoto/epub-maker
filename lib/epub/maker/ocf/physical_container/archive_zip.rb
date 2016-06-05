@@ -8,7 +8,6 @@ module EPUB
         def write(path_name, content)
           ::Dir.mktmpdir do |dir|
             tmp_archive_path = ::File.join(dir, ::File.basename(@container_path) + '.tmp')
-            path = ::File.join(dir, ::File.basename(path_name))
             ::File.open @container_path do |archive_in|
               ::File.open tmp_archive_path, 'w' do |archive_out|
                 archive_out.binmode
