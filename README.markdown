@@ -147,6 +147,7 @@ Recent Changes
 --------------
 ### 0.0.4
 * API change: #save -> #write for PhysicalContainer classes
+* Bump required EPUB Parser version: 0.2.0 -> 0.2.6
 * Deprecate `EPUB::OCF::PhysicalContainer.save`
 
 ### 0.0.3
