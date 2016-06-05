@@ -2,6 +2,7 @@
 -----
 
 * API change: #save -> #write for PhysicalContainer classes
+* Deprecate `EPUB::OCF::PhysicalContainer.save`
 
 0.0.3
 -----
