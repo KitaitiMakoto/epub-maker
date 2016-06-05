@@ -7,7 +7,7 @@ class TestMakerPublication < Test::Unit::TestCase
   def setup
     rootfile = 'OPS/ルートファイル.opf'
     @opf = File.read(File.expand_path("../fixtures/book/#{rootfile}", __FILE__))
-    @package = EPUB::Parser::Publication.new(@opf, rootfile).parse
+    @package = EPUB::Parser::Publication.new(@opf).parse
   end
 
   def test_to_xml_attribute
