@@ -34,7 +34,6 @@ module EPUB
             ::File.rename tmp_archive_path, @container_path
           end
         end
-        alias save write
       end
     end
   end

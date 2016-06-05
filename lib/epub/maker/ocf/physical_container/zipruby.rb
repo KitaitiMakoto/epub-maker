@@ -11,7 +11,6 @@ module EPUB
             open {|container| container.save(path_name, content)}
           end
         end
-        alias save write
       end
     end
   end
