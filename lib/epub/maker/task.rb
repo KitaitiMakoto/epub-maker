@@ -109,7 +109,7 @@ module EPUB
                 end
               end
             else
-              raise 'No rootfile set' if @rootfiles.empty?
+              raise 'No rootfile set' if rootfiles.empty?
               rf = rootfiles.first
               book.package = EPUB::Parser::Publication.new(File.read(rf)).parse
             end
