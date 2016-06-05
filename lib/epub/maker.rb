@@ -83,7 +83,6 @@ module EPUB
       package
     end
 
-    # @param archive [OCF::PhysicalContainer]
     def save
       ocf.save
       package.save
