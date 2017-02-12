@@ -222,6 +222,7 @@ module EPUB
           self
         end
 
+        # @return [Item]
         def make_item(options={})
           item = Item.new
           [:id, :href, :media_type, :properties, :media_overlay].each do |attr|
