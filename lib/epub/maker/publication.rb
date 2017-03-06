@@ -124,7 +124,9 @@ module EPUB
         def to_xml_fragment(xml)
           xml.metadata_('xmlns:dc' => EPUB::NAMESPACES['dc']) {
             (DC_ELEMS - [:languages]).each do |elems|
-              singular = elems[0..-2] + '_'
+              singular = elems[0..-2]
+              singular += 's' if elems == :rights
+              singular += '_'
               __send__("dc_#{elems}").each do |elem|
                 node = xml['dc'].__send__(singular, elem.content)
                 to_xml_attribute node, elem, [:id, :dir]
