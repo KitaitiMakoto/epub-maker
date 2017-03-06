@@ -10,7 +10,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["KitaitiMakoto@gmail.com"]
   gem.description   = %q{This library supports making and editing EPUB books}
   gem.summary       = %q{EPUB Maker}
-  gem.homepage      = ""
+  gem.homepage      = "http://www.rubydoc.info/gems/epub-maker"
 
   gem.files         = `git ls-files`.split($/)
   gem.files.delete '"test/fixtures/book/OPS/\343\203\253\343\203\274\343\203\210\343\203\225\343\202\241\343\202\244\343\203\253.opf"'
