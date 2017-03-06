@@ -1,3 +1,8 @@
+0.0.5
+-----
+
+* Fix bug to modify `dc:rights` to `dc:right`
+
 0.0.4
 -----
 
