@@ -7,3 +7,7 @@ if ENV['EDGE_PARSER'] == '1'
 end
 
 gemspec
+
+if RUBY_PLATFORM.match /darwin/
+  gem 'terminal-notifier'
+end
