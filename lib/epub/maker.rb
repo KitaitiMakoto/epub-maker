@@ -1,6 +1,5 @@
 require 'English'
 require 'pathname'
-require 'pathname/common_prefix'
 require 'fileutils'
 require 'tmpdir'
 require 'time'
