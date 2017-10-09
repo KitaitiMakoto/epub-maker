@@ -1,8 +1,4 @@
 require "English"
-require "pathname"
-require "fileutils"
-require "tmpdir"
-require "archive/zip"
 require "epub/maker"
 
 def main(argv)
