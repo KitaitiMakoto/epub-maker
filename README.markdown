@@ -170,6 +170,7 @@ Todo
 * Refine Rake task
   * Autodetection of media types
 * Makable from directory/package document file
+* `EPUB::Maker.archive`: don't copy files to temporary directory
 
 Recent Changes
 --------------
