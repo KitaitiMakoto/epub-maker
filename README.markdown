@@ -131,6 +131,27 @@ For APIs of parsed EPUB book, see [EPUB Parser's documentation][epub-parser-doc]
       task.bindings = {'application/x-demo-slideshow' => "#{DIR}/OPS/impl.xhtml"}
     end
 
+### epub-archive command
+
+`epub-archive` command archives given directory as an EPUB file like [epzip][] gem but doesn't require zip command.
+
+    % ls path/to
+    book
+    % epub-archie path/to/book
+    % ls path/to
+    book
+    book.epub
+
+You can specify target file path.
+
+    % epub-archive source/dir/book target/dir/book.epub
+    % ls source/dir
+    book
+    % ls target/dir
+    book.epub
+
+[epzip]: https://github.com/takahashim/epzip
+
 Requirements
 ------------
 * Ruby 2.1 or later
