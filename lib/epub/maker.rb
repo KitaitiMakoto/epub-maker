@@ -59,6 +59,46 @@ module EPUB
         error.set_backtrace backtrace
         raise error
       end
+
+      # Substance of +epub-archive+ command
+      # @param source_file [Pathname, String]
+      # @param epub_file [Pathname, String, nil]
+      # @return [Pathname] Path to generated EPUB file
+      # @raise [RuntimeError] if directory +source_dir+ doesn't exist
+      # @raise [Archive::Zip::Error] if something goes wrong around ZIP archive manipulation
+      # @todo Accept usage that +epub-archive path/to/boo .+ generates ./book.epub
+      # @todo Accept compression method option
+      # @todo Accept compression level option
+      def archive(source_dir, epub_file = nil)
+        source_dir = Pathname(source_dir)
+        raise "source directory #{source_dir} not exist" unless source_dir.exist?
+
+        epub_file ||= source_dir.sub_ext(".epub")
+        epub_file = Pathname(epub_file)
+
+        Dir.mktmpdir do |dir|
+          dir = Pathname(dir)
+          temp_dest = dir/epub_file.basename
+          temp_container = dir/source_dir.basename
+
+          temp_container.mkdir
+          mimetype = temp_container/"mimetype"
+          mimetype.write EPUB::MediaType::EPUB
+          Archive::Zip.open temp_dest.to_path, :w do |archive|
+            file = Archive::Zip::Entry.from_file(mimetype.to_path,  compression_codec: Archive::Zip::Codec::Store)
+            archive.add_entry file
+          end
+          mimetype.delete
+          temp_container.delete
+
+          FileUtils.cp_r source_dir, temp_container
+          mimetype.delete if mimetype.exist?
+          Archive::Zip.archive temp_dest.to_path, temp_container.to_path + "/.", directories: false
+          temp_dest.rename epub_file
+        end
+
+        epub_file
+      end
     end
   end
 

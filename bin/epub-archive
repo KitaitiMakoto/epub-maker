@@ -3,38 +3,13 @@ require "pathname"
 require "fileutils"
 require "tmpdir"
 require "archive/zip"
-require "epub/parser"
+require "epub/maker"
 
 def main(argv)
   source_dir = argv.shift
   raise "source directory not specified" unless source_dir
 
-  source_dir = Pathname(source_dir)
-  raise "source directory #{source_dir} not exist" unless source_dir.exist?
-
-  epub_file = argv.shift || source_dir.sub_ext(".epub").to_path
-  epub_file = Pathname(epub_file)
-
-  Dir.mktmpdir do |dir|
-    dir = Pathname(dir)
-    temp_dest = dir/epub_file.basename
-    temp_container = dir/source_dir.basename
-
-    temp_container.mkdir
-    mimetype = temp_container/"mimetype"
-    mimetype.write EPUB::MediaType::EPUB
-    Archive::Zip.open temp_dest.to_path, :w do |archive|
-      file = Archive::Zip::Entry.from_file(mimetype.to_path,  compression_codec: Archive::Zip::Codec::Store)
-      archive.add_entry file
-    end
-    mimetype.delete
-    temp_container.delete
-
-    FileUtils.cp_r source_dir, temp_container
-    mimetype.delete if mimetype.exist?
-    Archive::Zip.archive temp_dest.to_path, temp_container.to_path + "/.", directories: false
-    temp_dest.rename epub_file
-  end
+  EPUB::Maker.archive(source_dir, argv.shift)
 rescue => error
   $stderr.puts error
   abort usage
