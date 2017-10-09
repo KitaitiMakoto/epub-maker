@@ -76,8 +76,7 @@ module EPUB
         epub_file ||= source_dir.sub_ext(".epub")
         epub_file = Pathname(epub_file)
 
-        Dir.mktmpdir do |dir|
-          dir = Pathname(dir)
+        Pathname.mktmpdir do |dir|
           temp_dest = dir/epub_file.basename
           temp_container = dir/source_dir.basename
 
