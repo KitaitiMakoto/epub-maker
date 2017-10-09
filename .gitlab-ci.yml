@@ -1,5 +1,4 @@
 before_script:
-  - env
   - ruby -v
   - which ruby
   - gem install bundler --no-document
