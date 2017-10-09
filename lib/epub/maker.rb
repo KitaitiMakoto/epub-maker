@@ -67,6 +67,7 @@ module EPUB
       # @raise [RuntimeError] if directory +source_dir+ doesn't exist
       # @raise [Archive::Zip::Error] if something goes wrong around ZIP archive manipulation
       # @todo Accept usage that +epub-archive path/to/boo .+ generates ./book.epub
+      # @todo Abstract ZIP library
       # @todo Accept compression method option
       # @todo Accept compression level option
       def archive(source_dir, epub_file = nil)
