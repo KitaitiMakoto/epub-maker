@@ -8,11 +8,10 @@ require 'test/unit/notify'
 require 'open3'
 require 'shellwords'
 require 'pry'
+require 'epubcheck/ruby/cli'
 class Test::Unit::TestCase
   def assert_valid_epub(file)
-    jar = File.join(ENV['GEM_HOME'], 'gems', 'epubcheck-3.0.0', 'lib', 'epubcheck-3.0', 'epubcheck-3.0.jar')
-    stderr, status = Open3.capture2e "java -jar #{jar.shellescape} #{file.shellescape}"
-    assert_true (status.exitstatus == 0 or stderr !~ /^ERROR: /), stderr
+    assert_true Epubcheck::Ruby::CLI.new.execute(file)
   end
 end
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)

@@ -30,7 +30,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'zipruby'
   gem.add_development_dependency 'test-unit'
   gem.add_development_dependency 'test-unit-notify'
-  gem.add_development_dependency 'epubcheck'
+  gem.add_development_dependency 'epubcheck-ruby'
   gem.add_development_dependency 'simplecov'
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'pry-doc'
