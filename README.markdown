@@ -154,7 +154,7 @@ You can specify target file path.
 
 Requirements
 ------------
-* Ruby 2.1 or later
+* Ruby 2.2 or later
 * C compiler to build Nokogiri gems
 
 Todo
