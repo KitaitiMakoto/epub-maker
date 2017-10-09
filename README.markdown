@@ -145,6 +145,10 @@ Todo
 
 Recent Changes
 --------------
+### 0.0.6
+
+* Add `epub-archive` command
+
 ### 0.0.5
 
 * Fix bug to modify `dc:rights` to `dc:right`

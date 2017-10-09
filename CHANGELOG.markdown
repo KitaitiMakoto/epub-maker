@@ -1,3 +1,8 @@
+0.0.6
+-----
+
+* Add `epub-archive` command
+
 0.0.5
 -----
 
