@@ -76,4 +76,12 @@ class TestMaker < Test::Unit::TestCase
 
     assert_path_exist dirname
   end
+
+  def test_archive_default
+    epub_path = EPUB::Maker.archive(@fixture_dir)
+
+    assert_nothing_raised do
+      EPUB::Parser.parse epub_path
+    end
+  end
 end
