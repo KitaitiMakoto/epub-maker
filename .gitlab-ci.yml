@@ -1,10 +1,10 @@
 before_script:
   - ruby -v
   - which ruby
-  - apt update -qq -y
-  - apt install -qq -y default-jre
+  - apt -qq update -y
+  - apt -qq install -y default-jre
   - gem install bundler --no-document
-  - bundle install --jobs=$(nproc) --path=deps
+  - bundle install --jobs=$(nproc) --path=deps --quiet
 
 cache:
   paths:
