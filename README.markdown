@@ -173,6 +173,9 @@ Todo
 
 Recent Changes
 --------------
+### 0.0.8
+* Use default temporary directory for `EPUB::Maker.archive`
+
 ### 0.0.7
 
 * Change temporary directory used by `EPUB::Maker.archive`

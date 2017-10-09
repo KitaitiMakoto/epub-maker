@@ -1,3 +1,8 @@
+0.0.8
+-----
+
+* Use default temporary directory for `EPUB::Maker.archive` to avoid working on world writable place
+
 0.0.7
 -----
 
