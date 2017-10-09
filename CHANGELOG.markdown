@@ -1,3 +1,8 @@
+0.0.7
+-----
+
+* Change temporary directory used by `EPUB::Maker.archive` to avoid Error::EXDEV Invalid cross-device link @ rb_file_s_rename
+
 0.0.6
 -----
 
