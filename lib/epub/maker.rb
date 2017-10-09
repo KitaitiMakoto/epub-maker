@@ -155,8 +155,4 @@ class Pathname
   def remove_entry_secure
     FileUtils.remove_entry_secure to_path
   end
-
-  unless method_defined? :/
-    alias / +
-  end
 end
