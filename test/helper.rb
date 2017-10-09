@@ -11,14 +11,7 @@ require 'pry'
 require 'epubcheck/ruby/cli'
 class Test::Unit::TestCase
   def assert_valid_epub(file)
-    if ENV["GITLAB_CI"]
-      warn "Validating EPUB file loosly by EPUB::Parser.parse instead of EpubCheck"
-      assert_nothing_raised do
-        EPUB::Parser.parse file
-      end
-    else
-      assert_true Epubcheck::Ruby::CLI.new.execute(file)
-    end
+    assert_true Epubcheck::Ruby::CLI.new.execute(file)
   end
 end
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)

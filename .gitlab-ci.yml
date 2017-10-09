@@ -1,6 +1,8 @@
 before_script:
   - ruby -v
   - which ruby
+  - apt update -qq -y
+  - apt install -y default-jre
   - gem install bundler --no-document
   - bundle install --jobs=$(nproc) --path=deps
 
