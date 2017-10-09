@@ -1,6 +1,7 @@
 require 'English'
 require 'pathname'
 require 'fileutils'
+require 'tempfile'
 require 'tmpdir'
 require 'time'
 require 'uuid'
@@ -76,9 +77,8 @@ module EPUB
 
         epub_file ||= source_dir.sub_ext(".epub")
         epub_file = Pathname(epub_file)
-
-        Pathname.mktmpdir do |dir|
-          temp_dest = dir/epub_file.basename
+        Pathname.mktmpdir "epub-maker", epub_file.dirname do |dir|
+          temp_dest = Pathname(Tempfile.create(epub_file.basename.to_path, dir))
           temp_container = dir/source_dir.basename
 
           temp_container.mkdir
