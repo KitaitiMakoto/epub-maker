@@ -77,8 +77,8 @@ module EPUB
 
         epub_file ||= source_dir.sub_ext(".epub")
         epub_file = Pathname(epub_file)
-        Pathname.mktmpdir "epub-maker", epub_file.dirname do |dir|
-          temp_dest = Pathname(Tempfile.create(epub_file.basename.to_path, dir))
+        temp_dest = Pathname(Tempfile.create(epub_file.basename.to_path, epub_file.dirname.to_path))
+        Pathname.mktmpdir "epub-maker" do |dir|
           temp_container = dir/source_dir.basename
 
           temp_container.mkdir
