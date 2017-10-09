@@ -169,6 +169,7 @@ Recent Changes
 ### 0.0.6
 
 * Add `epub-archive` command
+* Add `EPUB::Maker.archive` method
 
 ### 0.0.5
 

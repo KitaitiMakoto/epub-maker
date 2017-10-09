@@ -2,6 +2,7 @@
 -----
 
 * Add `epub-archive` command
+* Add `EPUB::Maker.archive` method
 
 0.0.5
 -----
