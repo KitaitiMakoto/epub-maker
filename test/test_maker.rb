@@ -84,4 +84,13 @@ class TestMaker < Test::Unit::TestCase
       EPUB::Parser.parse epub_path
     end
   end
+
+  def test_archive_explit_epub_path
+    epub_path = EPUB::Maker.archive(@fixture_dir, @dir/"specified-path.epub")
+
+    assert_nothing_raised do
+      EPUB::Parser.parse epub_path
+    end
+    assert_equal (@dir/"specified-path.epub"), epub_path
+  end
 end
