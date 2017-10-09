@@ -150,6 +150,13 @@ You can specify target file path.
     % ls target/dir
     book.epub
 
+It also has Ruby API.
+
+    require 'epub/maker'
+    
+    EPUB::Maker.archive 'path/to/book' # => #<Pathname:path/to/book.epub>
+    EPUB::Maker.archive 'source/dir/book', 'target/dir/book.epub' # => #<Pathname:target/dir/book.epub>
+
 [epzip]: https://github.com/takahashim/epzip
 
 Requirements
