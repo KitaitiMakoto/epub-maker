@@ -5,8 +5,6 @@ end
 
 require 'test/unit'
 require 'test/unit/notify'
-require 'open3'
-require 'shellwords'
 require 'pry'
 require 'epubcheck/ruby/cli'
 class Test::Unit::TestCase
