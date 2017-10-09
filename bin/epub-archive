@@ -12,11 +12,7 @@ def main(argv)
   EPUB::Maker.archive(source_dir, argv.shift)
 rescue => error
   $stderr.puts error
-  abort usage
-end
-
-def usage
-  "Usage: #{$PROGRAM_NAME} SOURCE_DIR [EPUB_FILE]"
+  abort "Usage: #{$PROGRAM_NAME} SOURCE_DIR [EPUB_FILE]"
 end
 
 main(ARGV)
