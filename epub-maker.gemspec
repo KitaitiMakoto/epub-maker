@@ -22,7 +22,6 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'epub-parser', '>= 0.2.6'
   gem.add_runtime_dependency 'mimemagic'
-  gem.add_runtime_dependency 'ruby-uuid'
   gem.add_runtime_dependency 'archive-zip'
   gem.add_runtime_dependency 'rake'
   gem.add_runtime_dependency 'addressable', '>= 2.3.5'
