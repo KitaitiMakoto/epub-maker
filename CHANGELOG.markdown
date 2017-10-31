@@ -1,3 +1,8 @@
+0.0.9
+-----
+
+* Remove [ruby-uuid][] gem from dependencies
+
 0.0.8
 -----
 

@@ -178,7 +178,14 @@ Todo
 
 Recent Changes
 --------------
+### 0.0.9
+
+* Remove [ruby-uuid][] gem from dependencies
+
+[ruby-uuid]: https://github.com/shyouhei/ruby-uuid
+
 ### 0.0.8
+
 * Use default temporary directory for `EPUB::Maker.archive`
 
 ### 0.0.7
