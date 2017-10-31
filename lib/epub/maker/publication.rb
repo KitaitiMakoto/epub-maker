@@ -1,3 +1,4 @@
+require 'securerandom'
 require 'epub/publication/package'
 
 module EPUB
@@ -102,7 +103,7 @@ module EPUB
             if identifiers.empty?
               identifier = DCMES.new
               identifier.id = 'pub-id'
-              identifier.content = UUID.create.to_s
+              identifier.content = SecureRandom.uuid
               self.dc_identifiers << identifier
               self.unique_identifier = identifier
             else
