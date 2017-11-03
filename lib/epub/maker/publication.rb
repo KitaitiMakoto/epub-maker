@@ -316,7 +316,7 @@ module EPUB
               itemref_node = xml.itemref
               to_xml_attribute itemref_node, itemref, [:idref, :id]
               itemref_node['linear'] = 'no' unless itemref.linear?
-              itemref_node['properties'] = itemref.properties.join(' ') unless itemref.properties.empty?
+              itemref_node['properties'] = itemref.properties.to_a.join(' ') unless itemref.properties.empty?
             end
           }
           to_xml_attribute node, self, [:id, :toc, :page_progression_direction]
