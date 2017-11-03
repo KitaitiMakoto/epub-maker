@@ -2,6 +2,7 @@
 -----
 
 * Remove [ruby-uuid][] gem from dependencies
+* [BUG FIX]Convert Set to Array before writing into XML
 
 0.0.8
 -----

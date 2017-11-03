@@ -181,6 +181,7 @@ Recent Changes
 ### 0.0.9
 
 * Remove [ruby-uuid][] gem from dependencies
+* [BUG FIX]Convert Set to Array before writing into XML
 
 [ruby-uuid]: https://github.com/shyouhei/ruby-uuid
 
