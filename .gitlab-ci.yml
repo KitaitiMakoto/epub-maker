@@ -5,19 +5,34 @@ before_script:
   - apt -qq install -y default-jre
   - gem install bundler --no-document
   - bundle install --jobs=$(nproc) --path=deps --quiet
-
-cache:
-  paths:
-    - deps/
+  - bundle clean
 
 test:2.3:
   image: ruby:2.3
   script: bundle exec rake test
+  except:
+    - tags
+  cache:
+    key: ruby:2.3
+    paths:
+      - deps
 
 test:2.4:
   image: ruby:2.4
   script: bundle exec rake test
+  except:
+    - tags
+  cache:
+    key: ruby:2.4
+    paths:
+      - deps
 
 test:2.5:
   image: ruby:2.5
   script: bundle exec rake test
+  except:
+    - tags
+  cache:
+    key: ruby:2.5
+    paths:
+      - deps
