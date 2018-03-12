@@ -3,6 +3,7 @@
 
 * Remove [ruby-uuid][] gem from dependencies
 * [BUG FIX]Convert Set to Array before writing into XML
+* Follow change of EPUB Parser v0.3.6
 
 0.0.8
 -----
