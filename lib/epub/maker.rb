@@ -113,11 +113,11 @@ module EPUB
     def make_package
       package = Publication::Package.new
       package.book = self
+      no_package_rootfile = rootfiles.find {|rf| rf.package.nil?}
+      no_package_rootfile.package = package if no_package_rootfile
       package.make do |package|
         yield package if block_given?
       end
-      no_package_rootfile = rootfiles.find {|rf| rf.package.nil?}
-      no_package_rootfile.package = package if no_package_rootfile
       package
     end
 
