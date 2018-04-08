@@ -6,8 +6,6 @@ require 'tmpdir'
 require 'time'
 require 'archive/zip'
 require 'epub'
-require 'epub/constants'
-require 'epub/book'
 require 'epub/parser'
 require "epub/maker/version"
 require 'epub/maker/ocf'
