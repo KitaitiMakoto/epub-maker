@@ -69,7 +69,7 @@ module EPUB
       # @todo Accept compression method option
       # @todo Accept compression level option
       def archive(source_dir, epub_file = nil)
-        source_dir = source_dir[0..-2] if source_dir.end_with? "/"
+        source_dir = Pathname(source_dir.to_path[0..-2]) if source_dir.to_path.end_with? "/"
         epub_file ||= source_dir + ".epub"
         source_dir = Pathname(source_dir)
         raise "source directory #{source_dir} not exist" unless source_dir.exist?
