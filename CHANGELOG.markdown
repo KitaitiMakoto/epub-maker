@@ -1,3 +1,8 @@
+0.1.0
+-----
+
+* [BUG FIX]Fix the case file extension should be wrong
+
 0.0.9
 -----
 
