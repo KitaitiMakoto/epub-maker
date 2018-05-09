@@ -59,7 +59,7 @@ module EPUB
       end
 
       # Substance of +epub-archive+ command
-      # @param source_file [Pathname, String]
+      # @param source_dir [Pathname, String]
       # @param epub_file [Pathname, String, nil]
       # @return [Pathname] Path to generated EPUB file
       # @raise [RuntimeError] if directory +source_dir+ doesn't exist
