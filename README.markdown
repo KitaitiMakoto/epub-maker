@@ -1,7 +1,6 @@
 EPUB Maker
 ==========
 [![Gem Version](https://badge.fury.io/rb/epub-maker.svg)](http://badge.fury.io/rb/epub-maker)
-[![Dependency Status](https://gemnasium.com/KitaitiMakoto/epub-maker.png)](https://gemnasium.com/KitaitiMakoto/epub-maker)
 [![pipeline status](https://gitlab.com/KitaitiMakoto/epub-maker/badges/master/pipeline.svg)](https://gitlab.com/KitaitiMakoto/epub-maker/commits/master)
 [![coverage report](https://gitlab.com/KitaitiMakoto/epub-maker/badges/master/coverage.svg)](https://gitlab.com/KitaitiMakoto/epub-maker/commits/master)
 
