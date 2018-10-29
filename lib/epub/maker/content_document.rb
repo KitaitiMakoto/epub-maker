@@ -1,4 +1,5 @@
 require 'epub/content_document'
+require "nokogiri"
 
 module EPUB
   module ContentDocument

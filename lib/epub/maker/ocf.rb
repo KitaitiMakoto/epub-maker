@@ -1,5 +1,6 @@
 require 'epub/ocf'
 require 'epub/maker/ocf/physical_container'
+require "nokogiri"
 
 # @todo Use refinement
 module EPUB

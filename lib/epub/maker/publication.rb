@@ -1,5 +1,6 @@
 require 'securerandom'
 require 'epub/publication/package'
+require "nokogiri"
 
 module EPUB
   module Publication
