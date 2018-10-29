@@ -181,6 +181,7 @@ Recent Changes
 ### 0.1.0
 
 * [BUG FIX]Fix the case file extension should be wrong
+* Add Nokogiri to runtime dependencies explicitly
 
 ### 0.0.9
 
