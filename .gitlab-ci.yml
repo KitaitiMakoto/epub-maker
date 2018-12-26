@@ -38,7 +38,7 @@ test:2.5:
       - deps
 
 test:2.6:
-  image: ruby:2.6-rc
+  image: ruby:2.6
   script: bundle exec rake test
   except:
     - tags
