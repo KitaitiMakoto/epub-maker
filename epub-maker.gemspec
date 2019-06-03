@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'archive-zip'
   gem.add_runtime_dependency 'rake'
   gem.add_runtime_dependency 'addressable', '>= 2.3.5'
-  gem.add_runtime_dependency "nokogiri", ">= 1.6.0", "< 1.9"
+  gem.add_runtime_dependency "nokogiri", ">= 1.6.0", "< 1.11"
 
   gem.add_development_dependency 'zipruby'
   gem.add_development_dependency 'test-unit'
