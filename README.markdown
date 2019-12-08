@@ -178,6 +178,10 @@ Todo
 Recent Changes
 --------------
 
+### 0.1.1
+
+* Update Nokogiri version to < 1.11
+
 ### 0.1.0
 
 * [BUG FIX]Fix the case file extension should be wrong

@@ -1,3 +1,8 @@
+0.1.1
+-----
+
+* Update Nokogiri version to < 1.11
+
 0.1.0
 -----
 
