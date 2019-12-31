@@ -178,6 +178,10 @@ Todo
 Recent Changes
 --------------
 
+### 0.1.2
+
+* Close temp file when archiving EPUB file
+
 ### 0.1.1
 
 * Update Nokogiri version to < 1.11

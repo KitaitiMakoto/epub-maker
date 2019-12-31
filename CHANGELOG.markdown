@@ -1,3 +1,8 @@
+0.1.2
+------
+
+* Close temp file when archiving EPUB file
+
 0.1.1
 -----
 
