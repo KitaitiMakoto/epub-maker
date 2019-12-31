@@ -76,8 +76,9 @@ module EPUB
         raise "source directory #{source_dir} not exist" unless source_dir.exist?
 
         epub_file = Pathname(epub_file)
-        temp_dest = Pathname(Tempfile.create(epub_file.basename.to_path, epub_file.dirname.to_path))
-        temp_dest.close
+        temp_dest_file = Tempfile.create(epub_file.basename.to_path, epub_file.dirname.to_path)
+        temp_dest_file.close
+        temp_dest = Pathname(temp_dest_file)
         Pathname.mktmpdir "epub-maker" do |dir|
           temp_container = dir/source_dir.basename
 
