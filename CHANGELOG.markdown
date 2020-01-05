@@ -1,3 +1,8 @@
+0.1.3
+-----
+
+* Add workaround Window file renaming problem
+
 0.1.2
 ------
 
