@@ -190,7 +190,7 @@ module EPUB
           modified = Meta.new
           modified.property = "dcterms:modified"
           modified.content = datetime.respond_to?(:to_time) ?
-                               datetome.to_time.utc.xmlschema :
+                               datetime.to_time.utc.xmlschema :
                                datetime
           self.metas << modified
           modified
