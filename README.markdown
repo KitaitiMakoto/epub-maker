@@ -178,6 +178,10 @@ Todo
 Recent Changes
 --------------
 
+### 0.1.4
+
+* Add `Pubication::Package::Metadata#modified=` method
+
 ### 0.1.3
 
 * Add workaround Window file renaming problem
