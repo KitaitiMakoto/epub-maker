@@ -1,6 +1,7 @@
 require 'securerandom'
 require 'epub/publication/package'
 require "nokogiri"
+require "mimemagic"
 
 module EPUB
   module Publication
@@ -247,6 +248,15 @@ module EPUB
           end
           item.manifest = self
           yield item if block_given?
+          unless item.media_type
+            path = item.href.to_s
+            item.media_type =
+              if path.end_with? ".html"
+                "application/xhtml+xml"
+              else
+                MimeMagic.by_path(item.href.to_s).type
+              end
+          end
           self << item
           item
         end
