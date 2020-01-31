@@ -183,6 +183,18 @@ module EPUB
           name
         end
 
+        # Shortcut to set modified date time
+        # @param datetime [String, #to_time]
+        def modified=(datetime)
+          modified = Meta.new
+          modified.property = "dcterms:modified"
+          modified.content = datetime.respond_to?(:to_time) ?
+                               datetome.to_time.utc.xmlschema :
+                               datetime
+          self.metas << modified
+          modified
+        end
+
         class Meta
           def valid?
             property
