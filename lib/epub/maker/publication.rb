@@ -187,12 +187,15 @@ module EPUB
         # Shortcut to set modified date time
         # @param datetime [String, #to_time]
         def modified=(datetime)
-          modified = Meta.new
-          modified.property = "dcterms:modified"
+          modified = self.modified
+          unless modified
+            modified = Meta.new
+            modified.property = "dcterms:modified"
+            self.metas << modified
+          end
           modified.content = datetime.respond_to?(:to_time) ?
                                datetime.to_time.utc.xmlschema :
                                datetime
-          self.metas << modified
           modified
         end
 
