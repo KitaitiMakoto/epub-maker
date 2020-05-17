@@ -33,7 +33,7 @@ module EPUB
             begin
               ::File.chmod 0666 & ~::File.umask, tmp_archive_path
               ::File.rename tmp_archive_path, @container_path
-            rescue Errno::EACCES
+            rescue Errno::EACCES, Errno::EXDEV
               # In some cases on Windows, we fail to rename the file
               # but succeed to copy although I don't know why.
               # Race condition? I don't know. But no time to dig deeper.
