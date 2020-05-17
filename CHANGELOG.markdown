@@ -2,6 +2,7 @@
 -----
 
 * Add `Pubication::Package::Metadata#modified=` method
+* Rescue Errno::EXDEV on renaming temporary EPUB file
 
 0.1.3
 -----
