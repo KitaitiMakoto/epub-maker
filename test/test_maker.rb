@@ -73,7 +73,6 @@ class TestMaker < Test::Unit::TestCase
       error_message = error.message
     end
     dirname = error_message.match(/\[EPUB::Maker\].*:\s*(.+)\Z/m).captures.last
-
     assert_path_exist dirname
   end
 

@@ -1,7 +1,7 @@
 require_relative 'helper'
 require 'epub/maker'
 
-class TestImplaceEditing < Test::Unit::TestCase
+class TestInplaceEditing < Test::Unit::TestCase
   def setup
     @assets_dir = Pathname(__dir__)/'fixtures'/'book'
     @dir = Pathname.mktmpdir('epub-maker-test')
