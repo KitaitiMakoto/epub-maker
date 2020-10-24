@@ -15,7 +15,7 @@ module EPUB
                   Archive::Zip.open archive_out, :w do |z_out|
                     updated = false
                     z_in.each do |entry|
-                      if entry.zip_path == path_name
+                      if entry.zip_path == path_name.force_encoding('ASCII-8BIT')
                         entry.file_data = StringIO.new(content)
                         updated = true
                       end
