@@ -1,3 +1,8 @@
+0.1.5
+-----
+
+* [BUG FIX]Compare path name in the same encoding when finding file in ZIP archive
+
 0.1.4
 -----
 
