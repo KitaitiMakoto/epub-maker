@@ -56,3 +56,13 @@ test:2.7:
     key: ruby:2.7
     paths:
       - deps
+
+test:3.0:
+  image: ruby:3.0-rc
+  script: bundle exec rake test
+  except:
+    - tags
+  cache:
+    key: ruby:3.0
+    paths:
+      - deps
