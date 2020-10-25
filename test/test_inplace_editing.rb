@@ -59,4 +59,10 @@ class TestInplaceEditing < Test::Unit::TestCase
 
     assert_match '<title>Edited Title</title>', item.read
   end
+
+  def test_edit_without_change
+    epub = EPUB::Parser.parse(@valid_epub)
+    epub.save
+    assert_equal epub.release_identifier, EPUB::Parser.parse(@valid_epub).release_identifier
+  end
 end
