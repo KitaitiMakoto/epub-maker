@@ -8,6 +8,8 @@ class TestInplaceEditing < Test::Unit::TestCase
     @file = @dir/'book.epub'
     EPUB::Maker.archive @assets_dir, @file
     @book = EPUB::Parser.parse(@file)
+    @valid_epub = @dir/valid_epub.basename
+    FileUtils.cp valid_epub, @valid_epub
   end
 
   def teardown

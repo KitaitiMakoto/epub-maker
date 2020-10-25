@@ -11,6 +11,12 @@ class Test::Unit::TestCase
   def assert_valid_epub(file)
     assert_true Epubcheck::Ruby::CLI.new.execute(file)
   end
+
+  private
+
+  def valid_epub
+    Pathname.new("test/fixtures/accessible_epub_3.epub")
+  end
 end
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'epub'
