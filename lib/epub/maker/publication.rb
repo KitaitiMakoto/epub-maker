@@ -288,7 +288,11 @@ module EPUB
               elsif content_file
                 File.read(content_file)
               else
-                raise 'no content nor content_file'
+                begin
+                  read
+                rescue OCF::PhysicalContainer::NoEntry
+                  raise 'no content nor content_file'
+                end
               end
             book = manifest.package.book
             book.container_adapter.write book.epub_file, entry_name, content_to_save
