@@ -16,6 +16,15 @@ module EPUB
         def mtime
           @@mtime
         end
+
+        # Sets +mtime+, which is used when setting mtime of file in EPUB(ZIP) archive.
+        # Currently supported for only {ArchiveZip} adapter
+        #
+        # @example
+        #   EPUB::OCF::PhysicalCotainer.adapter = :ArchiveZip
+        #   EPUB::OCF::PhysicalCotainer.mtime = Time.new(2020, 1, 1)
+        #
+        # @return [Time]
         def mtime=(time)
           @@mtime = time
         end
