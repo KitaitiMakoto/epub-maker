@@ -13,15 +13,22 @@ module EPUB
   class OCF
     class PhysicalContainer
       class << self
+        def mtime
+          @@mtime
+        end
+        def mtime=(time)
+          @@mtime = time
+        end
+
         def write(container_path, path_name, content)
           open(container_path) {|container|
-            container.write(path_name, content)
+            container.write(path_name, content, mtime: mtime)
           }
         end
 
         def save(container_path, path_name, content)
           warn "EPUB::OCF::PhysicalContainer.#{__method__} is deprecated. Use .write instead"
-          write(container_path, path_name, content)
+          write(container_path, path_name, content, mtime: mtime)
         end
       end
     end

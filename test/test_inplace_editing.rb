@@ -65,4 +65,19 @@ class TestInplaceEditing < Test::Unit::TestCase
     epub.save
     assert_equal epub.release_identifier, EPUB::Parser.parse(@valid_epub).release_identifier
   end
+
+  def test_specify_mtime
+    # Currently, only ArchiveZip supports this API
+    EPUB::OCF::PhysicalContainer.adapter = :ArchiveZip
+    mtime = EPUB::OCF::PhysicalContainer.mtime = Time.new(2020, 1, 1)
+    epub = EPUB::Parser.parse(@valid_epub)
+    epub.metadata.unique_identifier.content = "new-unique-identifier"
+    epub.package.save
+
+    Archive::Zip.open @valid_epub.to_path do |z|
+      z.each do |entry|
+        assert_equal mtime, entry.mtime
+      end
+    end
+  end
 end

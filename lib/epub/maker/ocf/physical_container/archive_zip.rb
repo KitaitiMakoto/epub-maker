@@ -5,7 +5,7 @@ module EPUB
     class PhysicalContainer
       class ArchiveZip < self
         # @todo Write multiple files at once
-        def write(path_name, content)
+        def write(path_name, content, mtime: nil)
           ::Dir.mktmpdir do |dir|
             tmp_archive_path = ::File.join(dir, ::File.basename(@container_path) + '.tmp')
             ::File.open @container_path do |archive_in|
@@ -19,11 +19,17 @@ module EPUB
                         entry.file_data = StringIO.new(content)
                         updated = true
                       end
+                      if mtime
+                        entry.mtime = mtime
+                      end
                       z_out << entry
                     end
                     unless updated
                       entry = Archive::Zip::Entry::File.new(path_name)
                       entry.file_data = StringIO.new(content)
+                      if mtime
+                        entry.mtime = mtime
+                      end
                       z_out << entry
                     end
                   end
