@@ -178,6 +178,11 @@ Todo
 Recent Changes
 --------------
 
+### 0.1.5
+
+* [BUG FIX]Compare path name in the same encoding when finding file in ZIP archive
+* Add `PhysicalContaienr.mtime` API to set mtime of files in EPUB archive
+
 ### 0.1.4
 
 * Add `Publication::Package::Metadata#modified=` method
