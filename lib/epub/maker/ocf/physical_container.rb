@@ -13,6 +13,8 @@ module EPUB
   class OCF
     class PhysicalContainer
       class << self
+        @@mtime = nil
+
         def mtime
           @@mtime
         end
