@@ -192,10 +192,6 @@ Recent Changes
 
 * Add workaround Window file renaming problem
 
-### 0.1.2
-
-* Close temp file when archiving EPUB file
-
 Contributing
 ------------
 
