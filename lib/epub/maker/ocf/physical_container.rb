@@ -26,6 +26,7 @@ module EPUB
         #   EPUB::OCF::PhysicalCotainer.adapter = :ArchiveZip
         #   EPUB::OCF::PhysicalCotainer.mtime = Time.new(2020, 1, 1)
         #
+        # @param time [Time] mtime to set
         # @return [Time]
         def mtime=(time)
           @@mtime = time
