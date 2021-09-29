@@ -178,6 +178,10 @@ Todo
 Recent Changes
 --------------
 
+### 0.1.6
+
+* [BUG FIX]Add `mtime` keyword argument to `OCF::PhysicalContainer::Zipruby#write`
+
 ### 0.1.5
 
 * [BUG FIX]Compare path name in the same encoding when finding file in ZIP archive
