@@ -192,10 +192,6 @@ Recent Changes
 * Add `Publication::Package::Metadata#modified=` method
 * Rescue Errno::EXDEV on renaming temporary EPUB file
 
-### 0.1.3
-
-* Add workaround Window file renaming problem
-
 Contributing
 ------------
 
