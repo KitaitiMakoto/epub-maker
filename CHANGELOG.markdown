@@ -1,3 +1,8 @@
+0.1.7
+-----
+
+* Remove version specification from Nokogiri to migrate to Ruby 3.1
+
 0.1.6
 -----
 
