@@ -2,7 +2,8 @@ require 'tmpdir'
 require 'epub/ocf/physical_container'
 [
   [:ArchiveZip, 'archive_zip'],
-  [:Zipruby, 'zipruby']
+  [:Zipruby, 'zipruby'],
+  [:Rubyzip, 'rubyzip']
 ].each do |(class_name, feature_name)|
   if EPUB::OCF::PhysicalContainer.const_defined? class_name
     require "epub/maker/ocf/physical_container/#{feature_name}"
