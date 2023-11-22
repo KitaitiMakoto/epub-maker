@@ -29,6 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "nokogiri"
 
   gem.add_development_dependency 'zipruby' unless RUBY_PLATFORM.match /mingw|arm64-darwin/
+  gem.add_development_dependency 'rubyzip'
   gem.add_development_dependency 'test-unit'
   gem.add_development_dependency 'test-unit-notify'
   gem.add_development_dependency 'epubcheck-ruby'
