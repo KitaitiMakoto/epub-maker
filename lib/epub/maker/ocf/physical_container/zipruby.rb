@@ -8,7 +8,7 @@ module EPUB
           if @archive
             @archive.add_or_replace_buffer path_name, content
           else
-            open {|container| container.save(path_name, content)}
+            open {|container| container.write(path_name, content)}
           end
         end
       end
