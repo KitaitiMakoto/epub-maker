@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.required_ruby_version = '>= 2.2.0'
 
-  gem.add_runtime_dependency 'epub-parser', '>= 0.2.6'
+  gem.add_runtime_dependency 'epub-parser', '>= 0.4.8'
   gem.add_runtime_dependency 'mimemagic'
   gem.add_runtime_dependency 'archive-zip'
   gem.add_runtime_dependency 'rake'
