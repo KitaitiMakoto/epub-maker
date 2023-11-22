@@ -1,3 +1,8 @@
+0.1.8
+-----
+
+* Add adapter for Rubyzip
+
 0.1.7
 -----
 
