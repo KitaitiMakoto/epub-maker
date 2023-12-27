@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-if ENV['EDGE_PARSER'] == '1'
+if ENV["EPUB_PARSER_PATH"]
   group :development do
-    gem 'epub-parser', path: '../epub-parser'
+    gem 'epub-parser', path: ENV["EPUB_PARSER_PATH"]
   end
 end
 
