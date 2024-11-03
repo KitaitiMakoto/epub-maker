@@ -3,7 +3,6 @@ before_script:
   - which ruby
   - apt -qq update -y
   - apt -qq install -y default-jre
-  - gem install bundler --no-document
   - bundle install --jobs=$(nproc) --path=deps --quiet
   - bundle clean
 
